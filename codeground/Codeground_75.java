@@ -63,13 +63,163 @@ public class Codeground_75 extends Solution{
 	public void solution() {
 		Scanner sc = new Scanner(System.in);
 
-		int T = sc.nextInt();
-		for(int test_case = 0; test_case < T; test_case++) {
+		//int T = sc.nextInt();
+		for(int test_case = 0; test_case < 5000; test_case++) {
 			Answer = "";
-			int n = sc.nextInt();
+			int n = test_case+1;//sc.nextInt();
+			if(n <= 10) {
+				Answer = "1 "+n+"";
+				if(n == 10) Answer = "2 9 1";
+			}else if(n <= 100) {
+				/*
+				int digit_ten = n/10;
+				int digit_one = n%10;
+				if(digit_ten <= digit_one) {
+					Answer = (digit_ten * 11) +" "+(digit_one - digit_ten);
+				} else {
+					Answer = (digit_ten - 1)*11 +" "+(digit_one+10 - (digit_ten-1));
+				}
+				if(n == 100) {Answer = "99 1";}*/
+				if(n == 100) Answer = "2 99 1";
+				else if(n % 11 == 10)Answer = 3+" "+(n/11)*11 +" 9 1";
+				else {
+					if(n%11 == 0) Answer = 1+" "+n;
+					else Answer = 2+" "+(n/11)*11 +" "+(n%11);
+					}
+			}else if(n <= 1000) {
+				int digit_hun = n / 100;//백의자리
+				int digit_ten = (n / 10)%10;//십의 자리
+				int digit_one = n % 10;//일의자리
+				if(n==1000) {
+					Answer = "2 999 1";
+				} else if(n == 201) {
+					Answer = "3 191 9 1";
+				} else if ((digit_hun == digit_one + 1) && digit_ten == 0){
+					Answer = 2+" "+(n - 111) + " 111";//Answer = 2+" "+(n - 101) + " 101";
+				} else {
+					int near_circle;
+					if(digit_hun == digit_one) {
+						near_circle = n;
+					} else if(digit_hun > digit_one) {
+						if(digit_ten == 0) {
+							near_circle = (digit_hun-1)*100 + 90 + digit_hun-1;
+						} else {
+							 near_circle = (digit_hun)*100 + (digit_ten - 1)*10 + digit_hun;
+						}
+					} else {
+						near_circle = digit_hun*100 + digit_ten*10 + digit_hun;
+					}
+					if((n - near_circle)==0)Answer = 1+" "+near_circle;
+					else Answer = 2+" "+near_circle + " " +(n - near_circle);
+				}
+			}else {
+				Answer = "0";
+				int left = n /100;
+				int right = n % 100;
+				int left_reverse = left%10*10 + left/10;
+				int near_circle;
+				if(left_reverse > right) { //1990 = 1881 + 109
+					near_circle = (left-1)*100 + ((left-1)%10*10 + (left-1)/10);
+				}else { //1999
+					near_circle = left*100 + left_reverse;
+				}
+				
+				if((left/10 == right%10) && (right/10 == left%10)) Answer = 1+" "+n;
+				else {
+					int B = n - near_circle;
+					int m = (near_circle/100)%10;
+					if(B<10) {
+						Answer = 2+" "+near_circle+" "+B;
+					}else if(B<100) {
+						if(B%11==10)Answer = "0";//불가능한 경우도 있음. 1001 + 32 -> 1001 22 10
+						else Answer = 3+" "+near_circle+" "+(B/11)*11+" "+(B%11);// 기본
+						
+						
+						if(m-B%10>0)  {//1013..조건 여기. 다시 생각.
+							if(B%10 + B/10 > 10) {
+								if(B%10 + B/10!=10) {
+									if(B%10 -1 <= m)Answer = 2+" "+(near_circle-(B%10-1)*110)+" "+(B+(B%10-1)*110);
+									if(B%10==1)Answer = 2+" "+(near_circle-110)+" "+(B+110);
+								}
+								
+							}  else if(m+B/10<10) {
+								if(B%10 + B/10!=10) if(B%10<=m)Answer =2+" "+(near_circle-(B%10)*110)+" "+(B+(B%10)*110);
+							}
+							//11들어가는 경우는 m은 최대값ㄷ으로 고정이 아니고 더 클수도 있음 ..n은 0이구나.
+							if(B%10-B%10>1) { //그 11로 뺐을 때 1001보다 커야함
+								if(B%10+B/10>9) {
+									if(B%10 + B/10!=10) if(B%10>=m)Answer = 2+" "+(near_circle-(B%10)*110-11)+" "+(B+(B%10)*110+11);
+								}else if(B%10+B/10<9) {
+									if(B%10 + B/10!=10) if(B%10+1>=m)Answer = 2+" "+(near_circle-((B%10+1)*110)-11)+" "+(B+(B%10+1)*110+11);
+								}
+							}
+							
+						}else if(m==0 && left/10==1){
+							if((2+B%10)>10) {
+								if((B/10)<=(2+B%10)) {
+									if((B/10)==(2+B%10))Answer = 2+" "+999+" "+(B+2+m*110);
+									else Answer=2+" "+(999-(B%10+2-B/10)*10)+" "+ (B+2+(B%10+2-B/10)*10);
+								}
+							} 
+						}
+
+						if(B==10)Answer = 3+" "+near_circle+" "+9+" 1";// 기본
+						else if(B%11==0)Answer = 2+" "+near_circle+" "+(B);
+						else if (B%10==0) Answer = 3+" "+near_circle+" "+(B/11)*11+" "+(B%11);//일의자리가 0이라 m 백의자리가 0될 수 없음
+					}else {//110>B>=100
+						//if(B==100)Answer = 3+" "+near_circle+" 99 1";
+						//else Answer = 3+" "+near_circle+" 101 "+(B-101);
+						Answer = 3+" "+near_circle+" 101 "+(B-101);
+						if(m-B%10>0) {//이거 아님
+							if(B%10-1<=B/10) {
+								//System.out.println(1);
+								Answer = 2+" "+(near_circle-(B%10-1)*110)+" "+(B+(B%10-1)*110);}
+							else if(B/10<=B%10) {
+								if(B%10==9) Answer = 3+" "+near_circle+" "+"101 8";//더하기 1하면 1의자리 0됨. 회문 불가..
+								else Answer = 2+" "+(near_circle-(B%10)*110-11)+" "+(B+(B%10)*110+11);
+								}
+						}
+						
+						if(B==100)Answer = 3+" "+near_circle+" 99 1";
+					}
+					if(n==10000)Answer = "2 9999 1";
+				}
+			}
 			
-			System.out.println("Case #"+(test_case+1));
-			System.out.println(Answer);
+			int num = Integer.parseInt(Answer.charAt(0)+"");
+			String result = Answer;
+			if((result.length())<2)System.err.println("0인 경우  "+n);//System.err.println("0인 경우  "+result);
+			else {
+				result = result.substring(2);
+				int sum=0;
+				for(int k=0;k<num;k++) {
+					int y;
+					if(result.substring(result.lastIndexOf(" ")+1).equals(""))y=Integer.parseInt(result);
+					else y = Integer.parseInt(result.substring(result.lastIndexOf(" ")+1));
+					sum+=y;
+					
+					if(result.lastIndexOf(" ")==-1);
+					else result = result.substring(0, result.lastIndexOf(" "));
+					if(y<10) {
+						if(y<0) {System.err.println("0안 맞음 "+n+"  Answer  "+Answer);}
+					}
+					else if(y<100&&(y>=10)) {
+						if(y%11!=0) {System.err.println("1안 맞음 "+n+"  Answer  "+Answer+" "+y);}
+					} else if(y<1000){
+						if(y%10!=y/100)System.err.println("12안 맞음 "+n+"  Answer  "+Answer+" "+y);
+					}else {
+						int y_left=y/100;
+						int y_right = y%100;
+						if((y_left%10==y_right/10)&&(y_left/10==y_right%10));
+						else {System.err.println("2안 맞음 "+n+"  Answer  "+Answer);}
+					}
+				}
+				if(sum!=n)System.err.println("3안 맞음 "+n+"  Answer  "+Answer);
+			}
+			
+			
+			//System.out.println("Case #"+(test_case+1));
+			//System.out.println(Answer);
 		}
 		
 	}
