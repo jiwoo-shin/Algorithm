@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		Solution s = new Backjoon_10430();
+		Solution s = new Backjoon_2609();
 		s.solution();
 	}
 
