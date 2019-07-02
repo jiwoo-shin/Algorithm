@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Backjoon_2609 extends Solution {
 	
-	//두 개의 자연수를 입력받아 최대 공약수와 최소 공배수를 출력
+	//두 개의 자연수를 입력받아 최소 공배수를 출력
 	
 	@Override
 	public void solution() {
@@ -22,7 +22,6 @@ public class Backjoon_2609 extends Solution {
 		int GCD = x;
 		int LSD = (originX * originY)/GCD;
 		
-		System.out.println(GCD);
 		System.out.println(LSD);
 		
 	}
