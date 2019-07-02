@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Backjoon_1934 extends Solution {
 	
-	//두 개의 자연수를 입력받아 최대 공약수와 최소 공배수를 출력
+	//두 개의 자연수를 입력받아 최소 공배수를 출력
 	
 	@Override
 	public void solution() {
