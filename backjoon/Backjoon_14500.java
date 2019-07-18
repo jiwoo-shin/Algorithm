@@ -1,6 +1,10 @@
 package backjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.io.InputStreamReader;
 
 public class Backjoon_14500 extends Solution {
 	
@@ -14,16 +18,20 @@ public class Backjoon_14500 extends Solution {
 		return max;
 	}
 	@Override
-	public void solution() {
-		Scanner sc = new Scanner(System.in);
-		
-		int N = sc.nextInt();
-		int M = sc.nextInt();
+	public void solution(){
+		/*//Scanner sc = new Scanner(System.in);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String pp = br.readLine();
+		StringTokenizer st = new StringTokenizer(pp, " ");
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
 		
 		int[][] numbers = new int[N][M];
 		
 		for(int i = 0; i < N*M; i++) {
-			numbers[i/M][i%M] = sc.nextInt(); //입력받음
+			pp = br.readLine();
+			st = new StringTokenizer(pp, " ");
+			numbers[i/M][i%M] = Integer.parseInt(st.nextToken()); //입력받음
 			
 		}
 
@@ -143,7 +151,7 @@ public class Backjoon_14500 extends Solution {
 		}
 		
 		System.out.println(result);
-		
+		*/
 		
 		
 		/*//int[][] numbers = new int[N][M];
