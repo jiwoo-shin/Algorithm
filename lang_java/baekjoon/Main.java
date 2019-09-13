@@ -5,7 +5,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		Solution s = new Baekjoon_10972();
+		Solution s = new Baekjoon_10973();
 		s.solution();
 	}
 

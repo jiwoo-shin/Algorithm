@@ -29,7 +29,7 @@ public class Baekjoon_10972 extends Solution {
 			System.out.println(-1);
 		} else {
 			
-			//여기서 따로 for 안돌리고 ---1에서 바꾸고 여기는 change_index+1 이후 정렬만 해도 될듯.
+			//여기서 따로 for 안돌리고 ---1에서 바꾸고 여기는 change_index+1 이후 정렬만 해도 될듯. 노노 위에서는 change_index를 찾은거고. 아래는 change_index와 어떤걸 바꿀지 찾은거.
 			for(int i = N-1; i >= change_index+1; i-- ) { //change_index와 어디가 바뀌어야하 하는지 확인. change_index 우측에 있는 숫자와 바뀜, change_index 좌측의 숫자도 바뀌면 더 높은 자리의 숫자도 바뀌는 것ㅇ이므로 사전 순 바로 다음이 아님.
 				// N-1이 오른쪽이고 -1 될수록 왼쪽으로 가는거.. 
 				
