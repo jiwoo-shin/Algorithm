@@ -10,14 +10,16 @@ public class Baekjoon_9498 extends Solution {
 		
 		char[] grades = {'F', 'D', 'C', 'B', 'A'};
 		
-		int score = sc.nextInt(); //점수
+		int score = sc.nextInt()/10; //
+		int calculate = score/5;
 		
 		// if문 안쓰고 풀어보자.
 		// 1. ((score/10)/5)* -> score/10이 5 보다 작은 경우 0이 된다. ****7) 만족
 		// 2. ((score/10)/5)/2 -> (score/10)/5가 2보다 작은 경우 0이됨. 2인 경우는 1이 된다.
 		//		score/10 - ( 5 + 3*(((score/10)/5)/2)) -> (score/10)/5 가 2보다 작은 경우 5를 뺸다.****2), 3), 4), 5), 6) 만족
 		//												  (score/10)/5 가 2인경우 8을 뺸다. ****1) 만족
-		int index = ((score/10)/5)*(score/10 - ( 5 + 3*(((score/10)/5)/2)));
+		//int index = ((score/10)/5)*(score/10 - ( 5 + 3*(((score/10)/5)/2)));
+		int index = -4*calculate+score*calculate-calculate*calculate*calculate; //위에 보다덜 계산하는 방식 (나눗셈 개수가 적음, 괄호 없음)
 		
 		//socre/10 에 따라 계산되어야하는 index 값들
 		//10 -> 4 ****1)
