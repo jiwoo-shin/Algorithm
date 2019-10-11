@@ -34,7 +34,7 @@ public class Baekjoon_1759 extends Solution {
 				
 				s[length] = array[i];//s = s.substring(0, length)+array[i]; 
 				password(s, length+1, i);
-				// 기본 dfs와 다름 .. dfs : 2,1,3과 3,1,2 를 다르게 본다. 
+				// 기본 dfs와 다름 .. dfs : 2,1,3과 3,1,2 를 다르게 본다. 9
 				// 암호 : 2,1,3과 3, 1,2 같음
 				/*if(!visited[i]) {
 					//s += array[i]; > 이러면 다음 for문에 영향을 준다.
