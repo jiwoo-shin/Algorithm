@@ -8,29 +8,20 @@ import java.util.StringTokenizer;
 
 public class Baekjoon_1182 extends Solution {
 	static int[] array;
-	static boolean[] a;
 	
 	// 원소를 넣거나 빼거나 하여 
     static int partitial(int goal, int index, int current, int length, int limit) { //goal:  목표로하는 숫자, index : 현재  포함할지 말지 고민중인 숫자 위치, current : 여태까지의 합, length : 원소에서 넣을지 말지 어디까지 비교했는지, limit : 가능한 index
-    	//System.out.println("test "+ index+" "+current+" "+length);
-    	int answer = 0;
-    	if(goal == current && length == limit) { // 답을 구한 경우 (length == limit) 도 비교가 필요한게 원소가 0일수도 있으므로 모든 원소에 대해비교가 필요, goal이 되는 순간 그 이후 비교를 안하는게 아님 0이 있을수도 있으므로
-    		for(int i = 0;i<limit;i++) {
-    			if(a[i])System.out.print("O ");
-    			else System.out.print("X ");
-    			}
-    		System.out.println();
-    		return 1;
+    	//goal == current로 답 여부 구하면 안됨. 원소가 0일수도 있고 원소가 음수인 경우도 있어서 goal == current라도 끝가지 들어가는지, 들어가지 않는지 여부 판단 후 확인 필요함.
+    	if(length == limit) { // 답을 구한 경우 (length == limit)  비교가 필요한게 원소가 0일수도 있으므로 모든 원소에 대해비교가 필요, goal이 되는 순간 그 이후 비교를 안하는게 아님 0이 있을수도 있으므로
+    		if(goal == current) return 1; //if(length == limit && goal == current) return 1; 보다 빠르다. 모두 구한 경우만 goal==current인지 확인하면 되니까.
     	} 
-    	//else 하면 안된다 원소가 0일수도 있으므로 goal == current일 경우라도 다음 원소가 0인 경우에는 답 하나 더 존재하는거.
-    	if(index < limit) { // 계산이 필요한 경우
-    		a[index] = true;
-    		answer += partitial(goal, index+1, current+array[index], length+1, limit); //index 숫자 포함한 경우
-    		a[index] = false;
-    		answer += partitial(goal, index+1, current, length+1, limit); //index 숫자 포함하지 않은 경우. 여기도 length를 더하는이유는 length가 현재까지 선택된원소의 개수가 아니라 비교한 원소의 개수이기 때문
-    	}
-		return answer;
-    	//else return 0; // goal > current 인 경우는 불가능한 경우가 아님 원소가 음수일수도 있으므로
+    	else if(index < limit) { // 계산이 필요한 경우
+    		///int answer = 0;
+    		//answer += partitial(goal, index+1, current+array[index], length+1, limit); //index 숫자 포함한 경우
+    		//answer += partitial(goal, index+1, current, length+1, limit); //index 숫자 포함하지 않은 경우. 여기도 length를 더하는이유는 length가 현재까지 선택된원소의 개수가 아니라 비교한 원소의 개수이기 때문
+    		return partitial(goal, index+1, current+array[index], length+1, limit) + partitial(goal, index+1, current, length+1, limit);
+    	} 
+    	return 0; // goal > current 인 경우는 불가능한 경우가 아님 원소가 음수일수도 있으므로
     }
     
 	@Override
@@ -41,13 +32,12 @@ public class Baekjoon_1182 extends Solution {
 		int N = Integer.parseInt(st.nextToken());
 		int S = Integer.parseInt(st.nextToken());
 		array = new int[N];
-		a = new boolean[N];
 		st = new StringTokenizer(br.readLine());
 		for(int i = 0; i<N;i++) {
 			array[i] = Integer.parseInt(st.nextToken());
 		}
 		int answer = partitial(S, 0, 0, 0, N);
-		if(S == 0)answer--;
+		if(S == 0)answer--; //공집합은 제외
 		System.out.println(answer);
 	}
 }
