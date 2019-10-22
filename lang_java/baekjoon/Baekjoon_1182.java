@@ -1,3 +1,4 @@
+
 package lang_java.baekjoon;
 
 import java.io.BufferedReader;
@@ -7,6 +8,44 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Baekjoon_1182 extends Solution {
+	
+
+	static int[] array;
+	static int[] sum;
+	
+	static int answer = 0;
+    
+	
+	@Override
+	public void solution() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int S = Integer.parseInt(st.nextToken());
+		array = new int[N];
+		int sum_len = 1 << N;
+		sum = new int[sum_len];
+		st = new StringTokenizer(br.readLine());
+		for(int i = 0; i<N;i++) {
+			array[i] = Integer.parseInt(st.nextToken());
+			sum[1 << i] = array[i];
+		}
+		int j = 1;
+		int answer = 0;
+		int tmp = 1 << j;
+		for(int i = 1; i < sum_len; i++) { // for 내에서 N번 for문을 돌려서 i를 비교하여 넣거나 빼거나해도딤.
+			if(i > tmp)sum[i] = sum[tmp] + sum[i - tmp];
+			if(sum[i] == S)answer++;
+			if((i+1) == (1 << (j + 1))) {
+				j++;
+				tmp = 1 << j;
+				}
+		}
+		System.out.println(answer);
+	}
+	/*
+	// 재귀함수 사용
 	static int[] array;
 	
 	// 원소를 넣거나 빼거나 하여 
@@ -39,7 +78,7 @@ public class Baekjoon_1182 extends Solution {
 		int answer = partitial(S, 0, 0, 0, N);
 		if(S == 0)answer--; //공집합은 제외
 		System.out.println(answer);
-	}
+	}*/
 }
 /*package lang_java.baekjoon;
 
