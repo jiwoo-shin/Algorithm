@@ -12,7 +12,7 @@ public class Baekjoon_15654 extends Solution {
     static int N; // 숫자 범위
     static int M; //  수열 길이
     static int[] numbers;
-	static void dfs(int number, int length, boolean[] visited, int[] array) { // number: 이전에 추가한 노드가 몇번째인지 (0부터 시작), length : 현재까지 생성된 배열 길이(추가되어야하는 배열의 인덱스), visited : 방문한 배열, array : 수열
+	static void dfs(int length, boolean[] visited, int[] array) { // number: 이전에 추가한 노드가 몇번째인지 (0부터 시작), length : 현재까지 생성된 배열 길이(추가되어야하는 배열의 인덱스), visited : 방문한 배열, array : 수열
 		if(length == M) { // 수열을 생성(array[i]는 numbers의 인덱스 수열임)
 			for(int i = 0; i< length; i++)sb.append(numbers[array[i]]).append(" ");
 			sb.append("\n");
@@ -21,7 +21,7 @@ public class Baekjoon_15654 extends Solution {
 				if(!visited[i]) { // 방문한적이 없다면 방문 (1번노드 방문 시 visited[0] = true, visited의 인덱스는 실제 방문 노드보다 1 작음)
 					visited[i] = true;
 					array[length] = i; // 노드 방문 .. (index)
-					dfs(i, length+1, visited, array); // 이 dfs를 재귀적으로 호출하면서 끝까지 이동함
+					dfs(length+1, visited, array); // 이 dfs를 재귀적으로 호출하면서 끝까지 이동함
 					visited[i] = false; //다음 for문에서는 다른 경로이므로 현재 경로가 영향을 주면 안됨
 				}
 			}
@@ -45,7 +45,7 @@ public class Baekjoon_15654 extends Solution {
 		Arrays.sort(numbers);
 		
 		// index를 수열로 만들어준다.
-		dfs(-1, 0, new boolean[N], new int[M]); // 실제로 노드가 추가되지는 않았으므로 -1부터 시작
+		dfs(0, new boolean[N], new int[M]); 
 		System.out.print(sb.toString());
 	}
 }
