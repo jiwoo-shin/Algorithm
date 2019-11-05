@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Baekjoon_15665 extends Solution {
+public class Baekjoon_15666 extends Solution {
 
     static StringBuilder sb;
     static int N; // 숫자 범위
@@ -21,8 +21,9 @@ public class Baekjoon_15665 extends Solution {
 			}
 			sb.append('\n');
 		} else {
+			int start = length==0? 0 : array[length-1];
             int prev_num = 0; // 이전에 추가된,, 
-			for(int i = 0; i < N; i++) { 
+			for(int i = start; i < N; i++) { 
 				if(prev_num < numbers[i]) { // 남은 숫자가 같으면 다음 경로도 모두 같게 나온다.(for문 도는게 의미가 이전 까지는 모두동일을 의미하므로 이 같으면 노노 -> 남은 숫자가 같으므로 완전히중복이ㅣㅁ..)
 					array[length] = i; 
 					dfs(length+1, array);
