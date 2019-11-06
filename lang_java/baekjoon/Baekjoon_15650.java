@@ -16,6 +16,7 @@ public class Baekjoon_15650 extends Solution {
 			sb.append("\n");
 		} else { // 다음 방문 노드를 더 계산해야함
 			for(int i = number+1; i < N; i++) { // i는 방문할 예정인 노드 (number는 방문하였으므로 number 이후부터 방문한다.)
+				//visited는 사실 불필요 어차피 array[length] >array[length-1]을 항상 만족하기 때문
 				if(!visited[i]) { // 방문한적이 없다면 방문 (1번노드 방문 시 visited[0] = true, visited의 인덱스는 실제 방문 노드보다 1 작음)
 					visited[i] = true;
 					array[length] = (i+1); // 노드 방문 .. 실제 노드이므로 +1을 해준다... 이곳의 i만 실제 값으로 바꿔주고 나머지에서 사용되는 i는 0부터 시작하는 값
