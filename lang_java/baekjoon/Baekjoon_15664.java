@@ -14,9 +14,13 @@ public class Baekjoon_15664 extends Solution {
     static int[] numbers;
     
     // 남은 숫자가 동일하면 그 이후로 동일한 수열을 생성하므로 length에서 for문이 돌때 array[length]는 모두 달라야함.
-    // length 번째에 동일한 숫자가 들어갈 경우, 그 이후 순열이 반복되어 나타남 (for문이 도는것은 이전 순열까지같다는 것이고, length 번째까지같으면 남은 숫자가 동일하므로 그 이후 생성될숫자가 동일해짐)
-  
-	static void dfs(int length, boolean[] visited, int[] array) { // length : 현재까지 생성된 배열 길이(추가되어야하는 배열의 인덱스), array : 수열, visited: i번째 노드 방문하였는지 확인
+    // length 번째에 동일한 숫자가 들어갈 경우, 그 이후 순열이 반복되어 나타남 
+    //(for문이 도는것은 이전 순열까지같다는 것이고, length 번째까지같으면 남은 숫자가 동일하므로 그 이후 생성될숫자가 동일해짐)
+    
+    
+    
+    // length : 현재까지 생성된 배열 길이(추가되어야하는 배열의 인덱스), array : 수열, visited: i번째 노드 방문하였는지 확인
+	static void dfs(int length, boolean[] visited, int[] array) { 
 		if(length == M ) {
 			for(int i = 0; i < length; i++) {
 				sb.append(numbers[array[i]]).append(" ");
@@ -27,7 +31,8 @@ public class Baekjoon_15664 extends Solution {
 			int prev_num = 0; // 이전에 추가된,, 
 			for(int i = start; i < N; i++) { 
 				//!visited[i] : 노드 i를 방문하지 않은 경우만 방문
-				// prev_num < numbers[i]: 남은 숫자가 같으면 다음 경로도 모두 같게 나온다.(for문 도는게 의미가 이전 까지는 모두동일을 의미하므로 이 같으면 노노 -> 남은 숫자가 같으므로 완전히중복이ㅣㅁ..)
+				// prev_num < numbers[i]: 남은 숫자가 같으면 다음 경로도 모두 같게 나온다.
+				//(for문 도는게 의미가 이전 까지는 모두동일을 의미하므로 이 같으면 노노 -> 남은 숫자가 같으므로 완전히중복이ㅣㅁ..)
 				if(!visited[i] && prev_num < numbers[i]) { //
 					visited[i] = true;
 					array[length] = i; 
