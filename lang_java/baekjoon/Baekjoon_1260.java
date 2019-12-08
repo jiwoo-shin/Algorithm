@@ -13,6 +13,7 @@ public class Baekjoon_1260 extends Solution {
     static boolean[] visited; // 방문 여부(dfs 시 사용) (dfs의 인자로 받으면안됨 재귀 끝까지 가면 visited 초기화 되어버림..)
     static StringBuilder answer;
     
+    // DFS
     static void dfs(int index) { // index: 현재 방문한 정점
     	visited[index] = true; // index를 방문함
 		answer.append(index+1).append(" ");
@@ -23,7 +24,7 @@ public class Baekjoon_1260 extends Solution {
     		}
     	}
     }
-    
+    // BFS -> 재귀호출 ㄴㄴ => 한 노드 에서 끝까지 간 후 다음 노드 검색하는 것이아니므로
     static void bfs(int start, int N) { // index: 시작 정점
     	int[] nodes = new int[N]; // 방문한 정점들
     	boolean[] visited = new boolean[N]; // 방문여부
@@ -52,7 +53,6 @@ public class Baekjoon_1260 extends Solution {
     	}
     }
     
-    
 	@Override
 	public void solution() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -79,8 +79,11 @@ public class Baekjoon_1260 extends Solution {
 		for(int i = 0; i< N; i++) {
 	        Collections.sort(relation[i]); // 작은 점 먼저 방문해야하므로
 		}
+		
 		dfs(V);
+		
 		answer.append("\n");
+		
 		bfs(V, N);
 		System.out.println(answer.toString());
 	}
