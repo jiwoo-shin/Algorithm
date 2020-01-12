@@ -6,7 +6,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		
-		Solution s = new Baekjoon_10844();
+		Solution s = new Baekjoon_11057();
 		s.solution();
 	}
 
