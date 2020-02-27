@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Baekjoon_1718 extends Solution {
+public class Baekjoon_1748 extends Solution {
 	
 	@Override
 	public void solution() throws IOException {
