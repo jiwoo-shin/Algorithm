@@ -49,7 +49,6 @@ public class Baekjoon_1339 extends Solution {
 		int index = 0;
 		do {
 			answer = Math.max(answer, calculate(numbers, k));
-			System.out.println(index+++"¹øÂ° "+answer);
 		}while(next(length));
 		
 		System.out.println(answer);
@@ -88,7 +87,6 @@ public class Baekjoon_1339 extends Solution {
 		map_alphabet[standard_index] = tmp;
 		//Á¤·Ä
 		int limit = (length-standard_index)/2;//((length-1)-(standard_index)+1)/2; // standard ~ length-1 Àº ÁÂ¿ì ¹Ù²Þ
-		System.out.println(standard_index+" / "+change_index+" / "+limit);
 		for(int j = 0, left = 0, right = 0; j < limit; j++) {
 			left = standard_index+1+j;
 			right = length - 1 - j;
@@ -96,10 +94,6 @@ public class Baekjoon_1339 extends Solution {
 			map_alphabet[left] = map_alphabet[right];
 			map_alphabet[right] = tmp;
 		}
-		for(int k = 0; k < length; k++) {
-			System.out.print(map_alphabet[k]+" ");
-		}
-		System.out.println();
 		
 		return true;
 	}
