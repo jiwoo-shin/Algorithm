@@ -36,7 +36,6 @@ public class Baekjoon_14889 extends Solution {
 				// length 번째 선수가 추가된다. (단, length 번째 선수 추가 시 모든 선수가 같은 팀이라 가정 > start-link를 하므로 어차피 불필요하게 추가된 애들은 제거됨) 
 				add += (status[i][length]+status[length][i]);
 			}
-			System.out.println(length+" / "+add);
 			// 1. start 팀
 			if(length_start < N/2) {
 				score(length+1, N, start+add, link, length_start+1, length_link);

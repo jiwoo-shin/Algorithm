@@ -34,26 +34,19 @@ public class Baekjoon_2529 extends Solution {
 			for(int i = 0; i < length; i++) {
 				answer.append(arrays[i]);
 			}
-			isEnd = true;
+			isEnd = true; // 만족하는 가장 큰/작은 숫자를 구하면 되므로 처음 한번 만족하는 배열이 나온 경우 최적의 경우이다. (max는 큰수부터, min은 작은수부터했으므로)
 			return;
-		}else if(depth > 0) { // 첫번째 숫자가 아닌 경우
-			for(int i = 0; i < length && !isEnd; i++) { // isEnd 가 아닌 경우 
+		} else if(!isEnd) {// isEnd 가 아닌 경우 
+			for(int i = 0; i < length; i++) { 
 				int next_number = numbers[i]; // 다음에 들어갈 숫자
                 
                 // 다음에 들어갈 숫자가 방문한적이 없는 숫자이고 현재 숫자 다음 올 수 있는 숫자라면
-				if(!visited[next_number] && isAble(arrays[depth-1], next_number, inequalitys[depth-1])) {
+				if(depth == 0 || (!visited[next_number] && isAble(arrays[depth-1], next_number, inequalitys[depth-1]))) {
 					visited[next_number] = true; // 방문
 					arrays[depth] = next_number; //
 					getNumbers(length, depth+1, numbers, visited, inequalitys, arrays);
 					visited[next_number] = false;
 				}
-			}
-		} else { // 첫번째 숫장인 경우
-			for(int i = 0; i < length; i++) {
-				visited[numbers[i]] = true;
-				arrays[depth] = numbers[i];
-				getNumbers(length, depth+1, numbers, visited, inequalitys, arrays);
-				visited[numbers[i]] = false;
 			}
 		}
 		
