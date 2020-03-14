@@ -25,7 +25,7 @@ public class Baekjoon_14889 extends Solution {
 		score(0, N, 0, 0, 0, 0);
 		System.out.println(answer/2); // length 번째선수 추가 시 모든 선수가 같은팀이라 가정하였으므로 ij가 두번씩 더해짐 i 번째 선수 추가 시 ij, ji /j 번째 선수 추가 시 ji, ij
 	}
-	
+	// 재귀함수 사용
 	static void score(int length, int N, int start, int link, int length_start, int length_link) {
 		if(length == N) {
 			//  
