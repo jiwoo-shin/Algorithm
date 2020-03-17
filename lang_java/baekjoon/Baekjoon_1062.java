@@ -7,6 +7,9 @@ import java.util.StringTokenizer;
 
 public class Baekjoon_1062 extends Solution {
 	
+	// 기본으로 가르치는 글자들
+	static int basicWord = (1 << 'a' - 'a') | (1 << 'c' - 'a') | (1 << 'i' - 'a') | (1 << 'n' - 'a') | (1 << 't' - 'a'); // 기본
+	
 	@Override
 	public void solution() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,8 +20,7 @@ public class Baekjoon_1062 extends Solution {
 		for(int i = 0; i < N; i++) {
 			String tmp = br.readLine();
 			for(int j = 0; j < tmp.length(); j++) {
-				if(tmp.charAt(j)!= 'a' && tmp.charAt(j)!= 'c' && tmp.charAt(j)!= 't' && tmp.charAt(j)!= 'n' && tmp.charAt(j)!= 'i') 
-					words[i] |= 1 << (tmp.charAt(j) - 'a');
+				words[i] |= 1 << (tmp.charAt(j) - 'a'); 
 			}
 		}
 		int answer = 0;
@@ -32,7 +34,9 @@ public class Baekjoon_1062 extends Solution {
 	} 
 	static boolean check(int number, int M) {
 		int count = 0;
-		if(((number & (1 << 0)) != 0) || ((number & (1 << 2)) != 0) || ((number & (1 << 8)) != 0) || ((number & (1 << 13)) != 0) || ((number & (1 << 19)) != 0)) return false;
+		
+		// basicWord(acinta) 를 제외한 5개 중에서 뽑아야 하므로.. 
+		if((number & basicWord) != 0) return false;
 		
 		for(int i = 0; i < 26; i++) {
 			if((number & (1<<i))  != 0) { 
@@ -44,8 +48,9 @@ public class Baekjoon_1062 extends Solution {
 	}
 	static int readWord(int[] words, int number, int N) {
 		int answer = 0;
+		int mask = number | basicWord; // 
 		for(int i = 0; i < N; i++) {
-			if((words[i] & number) == words[i]) {
+			if((words[i] & mask) == words[i]) {
 				 answer++; // 가르치지 않은 글자가 포함된 경우
 			}
 		}
