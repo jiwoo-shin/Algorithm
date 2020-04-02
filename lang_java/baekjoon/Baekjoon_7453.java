@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Baekjoon_7453 extends Solution {
-	
+
 	static int n;
 	static int[] A, B, C, D, left, right;
-	
+
 	@Override
 	public void solution() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +40,7 @@ public class Baekjoon_7453 extends Solution {
 		// Á¤·Ä
 		Arrays.sort(left);
 		Arrays.sort(right);
-		
+
 		int left_index = 0;
 		int right_index = length - 1;
 		while(left_index < length && right_index >= 0) {
@@ -58,7 +58,7 @@ public class Baekjoon_7453 extends Solution {
 			}
 		}
 		System.out.println(answer);
-		
+
 	}
 	static int getSameNumber(int index, int[] array, int length, int direction) {
 		int tmp = index + direction;
@@ -68,4 +68,3 @@ public class Baekjoon_7453 extends Solution {
 		return Math.abs(tmp - index);
 	}
 }
-
