@@ -13,7 +13,7 @@ public class Baekjoon_1525 extends Solution {
 	
 	static int[] numbers = new int[11];
 	// static boolean[][] visited = new boolean[9][9]; // visited[i][j] 숫자 i 가 j 위치에 방문하였는지 여부 -> 이러면 012 345 -> 102 305 -> 142 305 다음 142 305 도 방문한 것으로 된다.
-	// static boolean[] used = new boolean[87654322];
+	// static boolean[] used = new boolean[87654322]; // 0~8을 중복없이 한번씩만 사용하므로 앞에 7자리만 같으면 뒤에 한자리도 같음.. key/10으로 판단해도 될듯..
 	
 	@Override
 	public void solution() throws IOException {
