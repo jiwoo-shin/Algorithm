@@ -59,7 +59,7 @@ public class Baekjoon_3055 extends Solution {
 				}
 			}
 			int queue_size = queue.size();
-			System.out.println(queue_size+" test");
+			// System.out.println(queue_size+" test");
 			for(int i = 0; i < queue_size; i++) {
 				now = queue.remove(0);
 				for(int j = 0; j < 4; j++) {
