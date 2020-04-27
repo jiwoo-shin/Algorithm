@@ -26,7 +26,7 @@ public class Baekjoon_15558 extends Solution {
 		System.out.println(bfs(k, N, visited));
 		
 	}
-	static int bfs(int k, int N, boolean [][] visited) {
+	static int bfs(int k, int N, boolean [][] visited) { // 결국 N 끝까지 가야하므로.. dfs가 더 빠를듯.. 어쨋든 노드의 끝을 탐색 가능한지 봐야하기 때문에 갈수 있는 최대한의 깊이를 먼저 탐색해보는게 더 빠를듯. 
 		Queue<int[]> queue = new LinkedList<int[]>();
 		// 초기값 (왼쪽 첫번째)
 		queue.add(new int[] {0, 0, 0});
