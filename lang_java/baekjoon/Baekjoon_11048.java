@@ -20,7 +20,6 @@ public class Baekjoon_11048 extends Solution {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < M; j++) {
 				input[i][j] = Integer.parseInt(st.nextToken());
-				memo[i][j] = -1;
 			}
 		}
 		for(int i = 0; i < N+1; i++) {
