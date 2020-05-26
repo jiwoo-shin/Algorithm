@@ -30,9 +30,10 @@ public class Baekjoon_3190 extends Solution {
 		int time = 0;
 		int move_index = 0;
 		int[] head = {0, 0};
-		int[] tail = {0, 0};
 		boolean[][] isSnake = new boolean[N][N]; // 해당 위치가 뱀인지 저장함
+		// tail과 history 없이 머리가 해당 위치에 몇조에 위치했는지 저장하여서 몸 길이와 시간의 차 비교해서 구해도 될듯.
 		int[][][] history = new int[N][N][2]; // 해당 위치에서 어디로 이동했는지 저장
+		int[] tail = {0, 0};
 		while(true) {
 			time++;
 			// 다음 머리의 위치를 구함
