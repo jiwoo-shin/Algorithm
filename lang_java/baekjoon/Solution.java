@@ -4,7 +4,15 @@ import java.io.IOException;
 
 public abstract class Solution {
 	public abstract void solution() throws IOException;
-
+	
+	static void print(String[][] array) {
+		for(int i = 0; i < array.length; i++) {
+			for(int j = 0; j < array[i].length; j++) {
+				System.out.println(array[i][j]);
+			}
+			System.out.println();
+		}
+	}
 	static void print(boolean[][] array) {
 		for(int i = 0; i < array.length; i++) {
 			for(int j = 0; j < array[i].length; j++) {
