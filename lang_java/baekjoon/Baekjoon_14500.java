@@ -2,12 +2,88 @@ package lang_java.baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.io.InputStreamReader;
 
 public class Baekjoon_14500 extends Solution {
 	
+	static int[][][] tetromino = {
+			// |
+			{{0, 0}, {1, 0}, {2, 0}, {3, 0}}, 
+			{{0, 0}, {0, 1}, {0, 2}, {0, 3}}, 
+			
+			 // Á¤»ç°¢Çü
+			{{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+			
+			// ¤Ì //
+			{{0, 0}, {0, 1}, {0, 2}, {-1, 1}}, 
+			{{0, 0}, {0, 1}, {1, 1}, {0, 2}}, // 
+			{{0, 0}, {1, 0}, {2, 0}, {1, 1}}, // 
+			{{0, 0}, {1, 0}, {2, 0}, {1, -1}}, // 
+			
+			//¤¡+¤¤ // ´ëÄªÇÊ¿ä
+			{{0, 0}, {0, 1}, {1, 1}, {1, 2}}, 
+			{{0, 0}, {0, 1}, {1, 0}, {-1, 1}}, // 
+			// ´ëÄª (ÁÂ¿ì)
+			{{0, 0}, {0, -1}, {1, -1}, {1, -2}}, 
+			{{0, 0}, {0, -1}, {1, 0}, {-1, -1}}, // 
+			
+			 // L // ´ëÄª ÇÊ¿ä
+			{{0, 0}, {1, 0}, {2, 0}, {2, 1}},
+			{{0, 0}, {0, 1}, {0, 2}, {1, 0}}, // 
+			{{0, 0}, {0, 1}, {1, 1}, {2, 1}}, // 
+			{{0, 0}, {0, 1}, {0, 2}, {-1, 2}}, // 
+			// ´ëÄª (ÁÂ¿ì)
+			{{0, 0}, {1, 0}, {2, 0}, {2, -1}},
+			{{0, 0}, {0, -1}, {0, -2}, {1, 0}}, // 
+			{{0, 0}, {0, -1}, {1, -1}, {2, -1}}, // 
+			{{0, 0}, {0, -1}, {0, -2}, {-1, -2}}, // 
+	};
+
+	static int getSum(int i, int j, int N, int M, int[][] numbers) {
+		int answer = 0;
+		int length = tetromino.length;
+		for(int t = 0; t < length; t++) {
+			int sum = 0;
+			for(int k = 0; k < 4; k++) {
+				int next_i = i + tetromino[t][k][0], next_j = j + tetromino[t][k][1];
+				//if(i == 3 && j == 0 && t == 4) System.out.println(next_i+" "+next_j);
+				if(next_i >=0 && next_j >= 0 && next_i < N && next_j < M) sum += numbers[next_i][next_j];
+				else {
+					sum = 0;
+					break;
+				}
+			}
+			//if(i == 3 && j == 0) System.out.println(sum);
+			answer = Math.max(answer, sum);
+		}
+		return answer;
+	}
+	
+	@Override
+	public void solution() throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int[][] numbers = new int[N][M];
+		for(int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < M; j++) {
+				numbers[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		int answer = 0;
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < M; j++) {
+				answer = Math.max(getSum(i, j, N, M, numbers), answer);
+			}
+		}
+		System.out.println(answer);
+		
+		
+	}
 	static int arroundMax(int index_x, int index_y, int[][] array) {
 		int max = 0;
 		if(index_x-1 > 0)max = array[index_x-1][index_y];
@@ -17,9 +93,8 @@ public class Baekjoon_14500 extends Solution {
 		
 		return max;
 	}
-	@Override
-	public void solution(){
-		/*//Scanner sc = new Scanner(System.in);
+	static int answer() throws IOException {
+		//Scanner sc = new Scanner(System.in);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String pp = br.readLine();
 		StringTokenizer st = new StringTokenizer(pp, " ");
@@ -151,7 +226,7 @@ public class Baekjoon_14500 extends Solution {
 		}
 		
 		System.out.println(result);
-		*/
+		return result;
 		
 		
 		/*//int[][] numbers = new int[N][M];
@@ -190,9 +265,5 @@ public class Baekjoon_14500 extends Solution {
 			if(k < M) //»ó´Ü
 			if(k > N*(M-1)) //ÇÏ´Ü
 		}*/
-		
-		
-		
-		
 	}
 }
