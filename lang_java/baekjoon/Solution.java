@@ -13,6 +13,12 @@ public abstract class Solution {
 			System.out.println();
 		}
 	}
+	static void print(boolean[] array) {
+		for(int i = 0; i < array.length; i++) {
+			System.out.print(array[i]?1+" ":0+" ");
+		}
+		System.out.println();
+	}
 	static void print(boolean[][] array) {
 		for(int i = 0; i < array.length; i++) {
 			for(int j = 0; j < array[i].length; j++) {
