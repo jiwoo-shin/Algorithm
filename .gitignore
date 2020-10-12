@@ -1,1 +1,5 @@
-init.txt
+# Java
+.metadata/
+.project
+.classpath
+./bin/
