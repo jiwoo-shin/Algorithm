@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		
-		Solution s = new Baekjoon_2916();
+		Solution s = new Baekjoon_5213();
 		s.solution();
 	}
 

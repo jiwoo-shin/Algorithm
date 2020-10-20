@@ -2,4 +2,4 @@
 .metadata/
 .project
 .classpath
-/bin/*
+lang_java/bin/*
