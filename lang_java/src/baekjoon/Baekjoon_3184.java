@@ -10,10 +10,10 @@ import java.util.StringTokenizer;
 import common.Solution;
 
 public class Baekjoon_3184 extends Solution {
-	int[][] move_position = {{1,0}, {-1, 0}, {0, 1}, {0, -1}};
-	boolean[][] visited;
-	char[][] map;
-	int R, C;
+	static int[][] move_position = {{1,0}, {-1, 0}, {0, 1}, {0, -1}};
+	static boolean[][] visited;
+	static char[][] map;
+	static int R, C;
 
 	@Override
 	public void solution() throws IOException {
@@ -70,14 +70,4 @@ public class Baekjoon_3184 extends Solution {
 		}
 		System.out.println(ship_num+" "+wolf_num);
 	}
-	/*
-	int[] search(int[] position, boolean[][] visited, int R, int C) {
-		for(int i = 0; i < 4; i++) {
-			int[] next = {position[0] + move[i][0], position[1] + move[i][1]};
-			if(next[0] >= 0 && next[0] < R && next[1] >= 0 && next[1] < C && !visited[next[0]][next[1]]) {
-				visited[next[0]][next[1]] = true;
-				search(next, visited, R, C);
-			}
-		}
-	}*/
 }
