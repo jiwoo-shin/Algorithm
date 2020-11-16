@@ -25,7 +25,7 @@ public class Baekjoon_1600 extends Solution {
 		for(int i = 0; i < H; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < W; j++) {
-				visited[i][j] = -Integer.parseInt(st.nextToken())-1; // 방문 x, 0회로 방문한 경우 분리가 필요함
+				visited[i][j] = -Integer.parseInt(st.nextToken())-1; // 방문 x, 0회로 방문한 경우 분리가 필요해서 -2: 장애물, -1: 방문 x, 0: 말의 이동으로 0번 이동.. . 아니면 boolean[H][W][K] visited해도 될 듯, map 1이 아닌 경우와 함께..
  			}
 		}
 		if(W == 1 && H == 1) System.out.println(0);
@@ -40,11 +40,7 @@ public class Baekjoon_1600 extends Solution {
 			int[] now = queue.remove();
 			for(int i = 0; i < 4; i++) {
 				int[] next = new int[] {now[0]+move[i][0], now[1]+move[i][1], now[2]+1, now[3]};
-				//System.out.println("move: "+now[0]+","+now[1]+"("+now[2]+" "+now[3]+")"+" -> "+next[0]+","+next[1]+"("+next[2]+" "+next[3]+")"+" / ");
-				//if(next[0] >= 0 && next[0] < H && next[1] >= 0 && next[1] < W)System.out.println(visited[next[0]][next[1]]);
 				if(next[0] >= 0 && next[0] < H && next[1] >= 0 && next[1] < W && (visited[next[0]][next[1]] != -2 && (visited[next[0]][next[1]] > next[3] || visited[next[0]][next[1]] == -1))) { // next[3]이 더 작다는 것은 이전에 방문했던 것 보다 말의 이동을 덜한 것 말의 이동을 아끼는 중
-
-					//System.out.println("ADD ");
 					if(next[0] == H-1 && next[1] == W-1) return next[2];
 					visited[next[0]][next[1]] = next[3];
 					queue.add(next);
