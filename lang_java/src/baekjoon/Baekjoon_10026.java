@@ -34,6 +34,7 @@ public class Baekjoon_10026 extends Solution {
 		search(N);
 	}
 	
+	// 다른 배열을 만나는게 항상 다 다른구역인지 모름. 그니까 구역 1을 위에서, 왼쪽에서, 아래에서 보는걸 다 다른것으로 보기 떄문에 덱보다는 i, j 순차로 dfs든 bfs든 돌리는게 적합
 	static void bfs1(int N) {
 		Deque<int[]> deque = new ArrayDeque<int[]>();
 		for(int i = 0; i < 2; i++) {

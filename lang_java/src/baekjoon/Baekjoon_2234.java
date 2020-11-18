@@ -13,7 +13,7 @@ public class Baekjoon_2234 extends Solution {
 	static int[][] map;
 	static int[][] move = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 	static int[][] ableMove;
-	static int[][][] visited;
+	static int[][] visited;
 	static int n, m;
 	
 	@Override
@@ -23,7 +23,7 @@ public class Baekjoon_2234 extends Solution {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		map = new int[m][n];
-		visited = new int[m][n][2];
+		visited = new int[m][n];
 		
 		for(int i = 0; i < m; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -47,29 +47,27 @@ public class Baekjoon_2234 extends Solution {
 			}
 		}
 		
+		// 
 		int[] rooms = new int[n*m]; //방의 넓이를 저장
 		int max = 0;
 		int room_number = 1;
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++) {
-				if(visited[i][j][0] == 0) { // 방문한 적이 없는 경우 (방번호가 할당되지 않음)
-					int tmp = bfs(room_number, i, j);
-					rooms[room_number-1] = tmp;
-					visited[i][j][1] = tmp;
-					max = Math.max(tmp, max);
+				if(visited[i][j] == 0) { // 방문한 적이 없는 경우 (방번호가 할당되지 않음)
+					rooms[room_number-1] = bfs(room_number, i, j);
+					max = Math.max(rooms[room_number-1], max);
 					room_number++;
-				} else {
-					visited[i][j][1] = rooms[visited[i][j][0]-1];
-				}
+				} 
 			}
 		}
+		// 벽을 하나 부수었을 떄 
 		int breakMax = 0;
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++) {
 				for(int d = 0; d < 4; d++) {
-					int next_i = i+move[d][0], next_j = j+move[d][1];
-					if(next_i >= 0 && next_i < m && next_j >= 0 && next_j < n && visited[next_i][next_j][0] != visited[i][j][0]) {
-						breakMax = Math.max(breakMax, visited[i][j][1]+visited[next_i][next_j][1]);
+					int next_i = i+move[d][0], next_j = j+move[d][1]; // next는 인접한
+					if(next_i >= 0 && next_i < m && next_j >= 0 && next_j < n && visited[next_i][next_j] != visited[i][j]) { // 인접하고 방번호가 다른 경우
+						breakMax = Math.max(breakMax, rooms[visited[i][j]-1] + rooms[visited[next_i][next_j]-1]);
 					}
 				}
 			}
@@ -79,7 +77,7 @@ public class Baekjoon_2234 extends Solution {
 	static int bfs(int room_number, int index_i, int index_j) {
 		Queue<int[]> queue = new LinkedList<>();
 		queue.add(new int[] {index_i, index_j});
-		visited[index_i][index_j][0] = room_number;
+		visited[index_i][index_j] = room_number;
 		int number = 0;
 		while(!queue.isEmpty()) {
 			int[] now = queue.remove();
@@ -87,9 +85,9 @@ public class Baekjoon_2234 extends Solution {
 			int move_num = ableMove[map[now[0]][now[1]]][0];
 			for(int d = 0; d < move_num; d++) {
 				int[] next = new int[] {now[0]+move[ableMove[map[now[0]][now[1]]][d+1]][0], now[1]+move[ableMove[map[now[0]][now[1]]][d+1]][1]};
-				if(next[0] >= 0 && next[0] < m && next[1] >= 0 && next[1] < n && visited[next[0]][next[1]][0] == 0) {
+				if(next[0] >= 0 && next[0] < m && next[1] >= 0 && next[1] < n && visited[next[0]][next[1]] == 0) {
 					queue.add(next);
-					visited[next[0]][next[1]][0] = room_number;
+					visited[next[0]][next[1]] = room_number;
 				}
 			}
 		}

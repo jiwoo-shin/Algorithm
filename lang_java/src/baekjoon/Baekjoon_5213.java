@@ -38,7 +38,7 @@ public class Baekjoon_5213 extends Solution {
 		Queue<int[]> queue = new LinkedList<int[]>(); // 현재 탐색중인 타일을 저장
 		queue.offer(new int[] {0, 0}); // 초기 위치
 		visited[0][0] = true;
-		int max = 0;
+		int max = 1;
 		while(!queue.isEmpty()) {
 			int[] now = queue.poll();
 			for(int i = 0; i < 6; i++) {
