@@ -48,7 +48,7 @@ public class Baekjoon_3197 extends Solution {
 		boolean[][] swan_visited = new boolean[R][C];
 		swan_visited[start_swan[0]][start_swan[1]] = true;
 		while(answer <= R*C) {
-			// 백조 이동
+			// 백조 이동// queue로 remove 하면서 while 비교로 하고 다음날에 방문해야 하는 위치(X인 경우)는 next_swan 이라는 큐를 새로 만들어도 될듯..
 			for(int i = 0; i < swan.size(); i++) { 
 				int[] now_swan = swan.remove(); 
 				int add_swan = 0;
