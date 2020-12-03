@@ -30,7 +30,7 @@ public class Baekjoon_2151 extends Solution {
 		System.out.println(bfs(N, map, init, wall));
 		
 	}
-	static int bfs(int N, char[][] map,  int[][] init, boolean[][] wall) {
+	static int bfs(int N, char[][] map,  int[][] init, boolean[][] wall) { // bfs가 결국 마지막걸 저장하고 거기서 나갈 수 있는 것들을 다시 모두 구하는 것.
 		Queue<int[]> queue = new LinkedList<int[]>();
 		boolean[][] visited = new boolean[N][N];
 		queue.add(init[0]);
