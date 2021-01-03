@@ -3,8 +3,6 @@ package baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.StringTokenizer;
 
 import common.Solution;
 
@@ -16,8 +14,8 @@ public class Baekjoon_4811 extends Solution {
 		long[][] dp = new long[31][32]; // H, WÀÇ °³¼ö
 		for(int i = 0; i < 31; i++) {
 			for(int j = 0; j < 31; j++) {
-				if(j == 0 && i!= 0) dp[i][j] = dp[i-1][j+1];
-				else if(i == 0) dp[i][j] = 1;
+				if(i == 0) dp[i][j] = 1;
+				else if(j == 0) dp[i][j] = dp[i-1][j+1];
 				else dp[i][j] = dp[i-1][j+1] + dp[i][j-1];
 			}
 		}
