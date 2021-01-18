@@ -52,7 +52,7 @@ public class Baekjoon_14238 extends Solution {
 			}
 			
 			if(number[2] > c) {
-				if(i == 0 || (i >= 1 && (answer[i-1] != 'C') || (i >= 2 && answer[i-2] != 'C' && answer[i-1] != 'C'))) {
+				if(i == 0 || (i == 1 && (answer[i-1] != 'C') || (i >= 2 && answer[i-2] != 'C' && answer[i-1] != 'C'))) {
 					answer[i] = 'C';
 					if(dp(number, length, a, b, c+1, visited, i+1, answer)!=null) return answer;
 				}
