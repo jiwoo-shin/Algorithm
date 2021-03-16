@@ -36,7 +36,7 @@ public class Baekjoon_2008 extends Solution {
 			p = Integer.parseInt(br.readLine())-1; //p, p+1을 잇는 가로 선.. memo[i]는 0부터이므로 보정한다.
 			
 			int tmp = memo[p];
-			memo[p] = Math.min(memo[p+1], memo[p]+min); // memo[p] : p+1 -> p로 i 번째 가로선을 타고 이동하는 경우(memo[p+1]) : p+1 갔다가 p로,.. / i 번째 가로선을 사용하거나 제거하는 경우.( memo[p]+min) 
+			memo[p] = Math.min(memo[p+1], memo[p]+min); // memo[p] : p+1 -> p로 i 번째 가로선을 타고 이동하는 경우(memo[p+1]):i 선 이전에 p+1까지 가는 경우  / i 번째 가로선을 사용하거나 제거하는 경우.( memo[p]+min): i 선 이전에 p 까지만 가는 경우
 			memo[p+1] = Math.min(tmp, memo[p+1]+min);
 			
 			for(int j = 0; j < N; j++) { // 나머지 선도 p와 p+1에 의해 최소비용이 변경될 수 있음 p나 p+1을 거쳐서 가는 경우
