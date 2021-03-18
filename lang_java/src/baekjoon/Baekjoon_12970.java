@@ -52,25 +52,4 @@ public class Baekjoon_12970 extends Solution {
 		}
 		return new StringBuffer("-1");
 	}
-	static StringBuffer getString(int N, int K) {
-		StringBuffer answer = new StringBuffer();
-		if(K == 0) {
-			answer.append('B');
-			for(int i = 1; i < N; i++) answer.append('A');
-			return answer;
-		} else {
-			int tmp = (int)Math.sqrt(K);
-			for(int i = 1; i <= tmp; i++) {
-				int a = i, b = K/i;
-				if(K%i == 0 && a + b <= N) {
-					for(int k = 0; k < a; k++) answer.append('A');
-					for(int k = 0; k < b; k++) answer.append('B');
-					for(int k = a+b; k < N; k++) answer.append('A');
-					return answer;
-				}
-			}
-		}
-		
-		return new StringBuffer("-1");
-	}
 }
