@@ -8,7 +8,7 @@ import codeground.*;
 public class Main {
     
 	public static void main(String[] args) throws IOException {
-		Solution s = new Baekjoon_9944();
+		Solution s = new Baekjoon_8982();
 		s.solution();
 	}
 
