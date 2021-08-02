@@ -53,7 +53,8 @@ public abstract class Solution {
 		System.out.println();
 		for(int i = 0; i < array.length; i++) {
 			for(int j = 0; j < array[i].length; j++) {
-				System.out.print(array[i][j]+" ");
+				if(array[i][j] < 10) System.out.print(" "+array[i][j]+" ");
+				else  System.out.print(array[i][j]+" ");
 			}
 			System.out.println();
 		}
