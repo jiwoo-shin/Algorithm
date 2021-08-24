@@ -3,6 +3,7 @@ package codingInterview;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import common.Solution;
 
@@ -12,7 +13,9 @@ public class CH01 extends Solution {
 	public void solution() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		// System.out.println(q1(br.readLine()));
-		System.out.println(q2(br.readLine(), br.readLine()));
+		//System.out.println(q2(br.readLine(), br.readLine()));
+		String tmp = br.readLine();
+		System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
 	}
 
 	// 문자 중복 여부 확인
@@ -42,5 +45,26 @@ public class CH01 extends Solution {
 			if(str1Use[tmp] != str2Use[tmp]) return false;
 		}
 		return true;
+	}
+	
+	// 문자열 공백 변경
+	static char[] q3(char[] chars, int length) {
+		int spaceCount = 0;
+		for(int i = 0; i < length; i++) {
+			if(chars[i] == ' ') spaceCount++;
+		}
+		int index = length + spaceCount*2 - 1;
+		for(int i = length-1; i >= 0; i--) {
+			if(chars[i] == ' ') {
+				chars[index--] = '0';
+				chars[index--] = '2';
+				chars[index--] = '%';
+			} else {
+				chars[index--] = chars[i];
+			}
+			
+		}
+		return chars;
+		
 	}
 }
