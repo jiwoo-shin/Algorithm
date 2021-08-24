@@ -14,8 +14,9 @@ public class CH01 extends Solution {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		// System.out.println(q1(br.readLine()));
 		//System.out.println(q2(br.readLine(), br.readLine()));
-		String tmp = br.readLine();
-		System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
+		//String tmp = br.readLine();
+		//System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
+		System.out.println(q4(br.readLine()));
 	}
 
 	// 문자 중복 여부 확인
@@ -65,6 +66,19 @@ public class CH01 extends Solution {
 			
 		}
 		return chars;
-		
+	}
+	
+	// 회문 순열 여부 검사 (회문 여부 아님!!!)
+	static boolean q4(String str) {
+		int length = str.length();
+		int oddNumber = 0;
+		int[] alphabet = new int[26];
+		for(int i = 0; i < length; i++) {
+			int tmp = str.charAt(i) - 'a';
+			alphabet[tmp]++;
+			if(alphabet[tmp]%2 != 0) oddNumber++; // 홀수 여부만 파악하면 되므로 비트 연산도 가능하다.
+			else oddNumber--;
+		}
+		return length%2 == oddNumber;
 	}
 }
