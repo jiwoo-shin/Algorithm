@@ -16,7 +16,8 @@ public class CH01 extends Solution {
 		//System.out.println(q2(br.readLine(), br.readLine()));
 		//String tmp = br.readLine();
 		//System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
-		System.out.println(q4(br.readLine()));
+		//System.out.println(q4(br.readLine()));
+		System.out.println(q5(br.readLine(), br.readLine()));
 	}
 
 	// 문자 중복 여부 확인
@@ -80,5 +81,26 @@ public class CH01 extends Solution {
 			else oddNumber--;
 		}
 		return length%2 == oddNumber;
+	}
+	
+	// 1회 편집만으로 str1 -> str2 으로 만들 수 있는지
+	static boolean q5(String str1, String str2) {
+		int length1 = str1.length(), length2 = str2.length();
+		if(Math.abs(length1 - length2) > 1) return false;
+		int add1 = length1 >= length2 ? 1 : 0, add2 = length2 >= length1 ? 1 : 0;
+		int index1 = 0, index2 = 0;
+		int diff = 0;
+		while(index1 < length1 && index2 < length2) {
+			if(str1.charAt(index1) != str2.charAt(index2)) {
+				index1 += add1;
+				index2 += add2;
+				diff++;
+			} else {
+				index1++;
+				index2++;
+			}
+			if(diff >= 2) return false; 
+		}
+		return true;
 	}
 }
