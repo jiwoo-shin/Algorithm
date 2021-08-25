@@ -17,7 +17,8 @@ public class CH01 extends Solution {
 		//String tmp = br.readLine();
 		//System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
 		//System.out.println(q4(br.readLine()));
-		System.out.println(q5(br.readLine(), br.readLine()));
+		// System.out.println(q5(br.readLine(), br.readLine()));
+		System.out.println(q6(br.readLine()));
 	}
 
 	// 문자 중복 여부 확인
@@ -102,5 +103,39 @@ public class CH01 extends Solution {
 			if(diff >= 2) return false; 
 		}
 		return true;
+	}
+	
+	// 문자열 압축
+	static String q6(String str) {
+		StringBuilder sb = new StringBuilder();
+		int sameIndex = 1;
+		
+		/*int index = 0;
+		 * while(index < str.length()) {
+			char tmp = str.charAt(index);
+			if(sb.charAt(sb.length() -1) != tmp) {
+				sameIndex = 0;
+				sb.append(tmp);
+				do {
+					index++;
+					sameIndex++;
+				} while (index < str.length() && str.charAt(index) == tmp);
+				sb.append(sameIndex);
+			}
+		}
+		sb.replace(0, 1, "");*/
+		
+		for(int i = 0; i < str.length() - 1; i++) {
+			if(str.charAt(i) != str.charAt(i+1)) {
+				sb.append(str.charAt(i)).append(sameIndex);
+				sameIndex = 1;
+			} else {
+				sameIndex++;
+			}
+		}
+		sb.append(str.charAt(str.length()-1)).append(sameIndex);
+		// System.out.println(sb.toString()+" "+str);
+		if(sb.length() > str.length()) return str;
+		return sb.toString();
 	}
 }
