@@ -19,7 +19,8 @@ public class CH01 extends Solution {
 		//System.out.println(q4(br.readLine()));
 		// System.out.println(q5(br.readLine(), br.readLine()));
 		// System.out.println(q6(br.readLine()));
-		print(q7(genMatrix(Integer.parseInt(br.readLine()))));
+		// print(q7(genMatrix(Integer.parseInt(br.readLine()))));
+		print(q8(genMatrix(Integer.parseInt(br.readLine()))));
 	}
 	// 문자 중복 여부 확인
 	static boolean q1(String str) {
@@ -152,6 +153,25 @@ public class CH01 extends Solution {
 				matrix[n-index][depth] = matrix[n-depth][n-index];
 				matrix[n-depth][n-index] = matrix[index][n-depth];
 				matrix[index][n-depth] = tmp;
+			}
+		}
+		return matrix;
+	}
+	
+	// 원소 0, 행, 렬 모두 0으로 만들기
+	static int[][] q8(int[][] matrix) {
+		print(matrix);
+		int[][] position = new int[matrix.length*matrix.length][2];
+		int positionIndex = 0;
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix.length; j++)
+				if(matrix[i][j] == 0) position[positionIndex++] = new int[] {i, j};
+		}
+		for(int i = 0; i < positionIndex; i++) {
+			int indexI = position[i][0], indexJ = position[i][1];
+			for(int l = 0; l < matrix.length; l++) {
+				matrix[indexI][l] = 0;
+				matrix[l][indexJ] = 0;
 			}
 		}
 		return matrix;
