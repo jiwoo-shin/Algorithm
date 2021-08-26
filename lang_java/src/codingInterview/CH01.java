@@ -18,9 +18,9 @@ public class CH01 extends Solution {
 		//System.out.println(q3(Arrays.copyOf(tmp.toCharArray(), 3*tmp.length()), tmp.length()));
 		//System.out.println(q4(br.readLine()));
 		// System.out.println(q5(br.readLine(), br.readLine()));
-		System.out.println(q6(br.readLine()));
+		// System.out.println(q6(br.readLine()));
+		print(q7(genMatrix(Integer.parseInt(br.readLine()))));
 	}
-
 	// 문자 중복 여부 확인
 	static boolean q1(String str) {
 		boolean[] use = new boolean[128]; // ascii 코드는 1바이트(8bit)로 문자를 표현함
@@ -137,5 +137,31 @@ public class CH01 extends Solution {
 		// System.out.println(sb.toString()+" "+str);
 		if(sb.length() > str.length()) return str;
 		return sb.toString();
+	}
+	
+	// 행렬 회전 (대각선 대칭이동이 아님..)
+	static int[][] q7(int[][] matrix) { 
+		print(matrix);
+		int Maxdepth = matrix.length/2;
+		int n = matrix.length-1;
+		for(int depth = 0; depth < Maxdepth; depth++) {
+			int length = n - depth;
+			for(int index = depth; index < length; index++) {
+				int tmp = matrix[depth][index];
+				matrix[depth][index] = matrix[n-index][depth];
+				matrix[n-index][depth] = matrix[n-depth][n-index];
+				matrix[n-depth][n-index] = matrix[index][n-depth];
+				matrix[index][n-depth] = tmp;
+			}
+		}
+		return matrix;
+	}
+	static int[][] genMatrix(int n) {
+		int[][] matrix = new int[n][n];
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++)
+				matrix[i][j] = (int) (Math.random()*10);
+		}
+		return matrix;
 	}
 }
