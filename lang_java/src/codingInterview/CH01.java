@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import common.Solution;
 
@@ -20,7 +21,8 @@ public class CH01 extends Solution {
 		// System.out.println(q5(br.readLine(), br.readLine()));
 		// System.out.println(q6(br.readLine()));
 		// print(q7(genMatrix(Integer.parseInt(br.readLine()))));
-		print(q8(genMatrix(Integer.parseInt(br.readLine()))));
+		// print(q8(genMatrix(Integer.parseInt(br.readLine()))));
+		System.out.println(q9(br.readLine(), br.readLine()));
 	}
 	// 문자 중복 여부 확인
 	static boolean q1(String str) {
@@ -183,5 +185,26 @@ public class CH01 extends Solution {
 				matrix[i][j] = (int) (Math.random()*10);
 		}
 		return matrix;
+	}
+	
+	// str1이 str2를 회전으로 만들 수 있는 지 확인 (isSubString은 1회만 호출)
+	static boolean q9(String str1, String str2) {
+		// 이렇게 안하고 두번 붙여서 subString 확인만해도 된다..
+		if(str1.length() != str2.length()) return false;
+		char firstChar = str1.charAt(0);
+		int start = str2.indexOf(firstChar);
+		if(start == 0) return false;
+		int end = start;
+		for(int i = 1; i < str2.length(); i++) {
+			if(str1.charAt(i) != str2.charAt((start+i) % str2.length())) {
+				end = start + i - 1;
+				break;
+			}
+		}
+		String compare = str2.substring(end, str2.length()) + str2.substring(0, start);
+		return isSubString(str1, compare);
+	}
+	static boolean isSubString(String totalString, String subString) {
+		return totalString.contains(subString);
 	}
 }
