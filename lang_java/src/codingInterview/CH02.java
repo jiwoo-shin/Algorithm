@@ -17,7 +17,8 @@ public class CH02 extends Solution {
 	@Override
 	public void solution() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		print(q1(createSingleLinkedList(10)));
+		//print(q1(createSingleLinkedList(10)));
+		System.out.println(q2(createSingleLinkedList(10), Integer.parseInt(br.readLine())));
 		createDoubleLinkedList(10);
 	}
 	static LinkedList<Integer> createSingleLinkedList(int n) {
@@ -43,6 +44,21 @@ public class CH02 extends Solution {
 			hash.add(it.next());
 		}
 		return hash;
+	}
+	
+	// 뒤에서 k 번째 요소 구하기
+	static int q2(LinkedList<Integer> data, int k) {
+		if(k <= 0 || k > data.size()) return Integer.MIN_VALUE;
+		print(data);
+		Iterator<Integer> fast = data.iterator();
+		Iterator<Integer> slow = data.iterator();
+		int index = 0;
+		while(fast.hasNext()) {
+			if(index > k-1) slow.next(); // 마지막 반환 시 next() 호출하므로.. k-1보다 클 경우부터 한다.
+			index++;
+			fast.next();
+		}
+		return slow.next();
 	}
 	
 	
