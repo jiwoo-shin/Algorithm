@@ -1,10 +1,26 @@
 package common;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public abstract class Solution {
 	public abstract void solution() throws IOException;
 
+	public static void print(HashSet<Integer> array) {
+		for(int i : array) {
+			System.out.print(i+" ");
+		}
+		System.out.println();
+	}
+	public static void print(LinkedList<Integer> array) {
+		Iterator<Integer> it = array.iterator();
+		while(it.hasNext()) {
+			System.out.print(it.next()+" ");
+		}
+		System.out.println();
+	}
 	public static void print(int[][][] array) {
 		for(int i = 0; i < array.length; i++) {
 			for(int j = 0; j < array[i].length; j++) {
