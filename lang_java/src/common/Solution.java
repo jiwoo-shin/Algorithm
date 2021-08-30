@@ -5,9 +5,21 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import codingInterview.CH02.DoubleLinkedList;
+import codingInterview.CH02.Node;
+
+
 public abstract class Solution {
 	public abstract void solution() throws IOException;
 
+	public static void print(DoubleLinkedList array) {
+		Node head = array.head;
+		while(head != null) {
+			System.out.print(head.data+" ");
+			head = head.next;
+		}
+		System.out.println();
+	}
 	public static void print(HashSet<Integer> array) {
 		for(int i : array) {
 			System.out.print(i+" ");
