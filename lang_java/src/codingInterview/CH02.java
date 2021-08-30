@@ -119,7 +119,26 @@ public class CH02 extends Solution {
 		data.head.next = data.head.next.next;
 		return data;
 	}
-	
+
+	// ºÐÇÒ
+	static DoubleLinkedList q4(LinkedList<Integer> data, int k) {
+		DoubleLinkedList result = new DoubleLinkedList(null, null);
+		DoubleLinkedList after = new DoubleLinkedList(null, null);
+		Iterator<Integer> it = data.iterator();
+		
+		while(it.hasNext()) {
+			int d = it.next();
+			if(d < k) {
+				result.add(d);
+			} else {
+				after.add(d);
+			}
+		}
+		result.tail.next = after.head;
+		after.head.prev = result.tail;
+		
+		return result;
+	}
 	
 	
 }
