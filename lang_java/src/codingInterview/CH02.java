@@ -20,7 +20,9 @@ public class CH02 extends Solution {
 		//print(q1(createSingleLinkedList(10)));
 		//System.out.println(q2(createSingleLinkedList(10), Integer.parseInt(br.readLine())));
 		//print(q3(createDoubleLinkedList(Integer.parseInt(br.readLine()))));
-		print(q4(createSingleLinkedList(10), 4));
+		// print(q4(createSingleLinkedList(10), 4));
+		// print(q5(new LinkedList<Integer>(), 0, createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
+		print(q51(new LinkedList<Integer>(), createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
 	}
 	static public class DoubleLinkedList {
 		public Node head;
@@ -140,5 +142,44 @@ public class CH02 extends Solution {
 		return result;
 	}
 	
+	// 연결리스트 합 - 역순
+	static LinkedList<Integer> q5(LinkedList<Integer> sum, int index, Iterator<Integer> number1, Iterator<Integer> number2) {
+		if(!number1.hasNext() && !number2.hasNext()) return sum;
+		int num1 = number1.hasNext()? number1.next() : 0;
+		int num2 = number2.hasNext()? number2.next() : 0;
+		int add = num1 + num2 + ((sum.size() > index) ? sum.remove(index) : 0);
+		sum.add(add % 10);
+		if(add / 10 > 0)sum.add(add / 10);
+		q5(sum, index+1, number1, number2);
+		return sum;
+	}
+	
+	// 연결리스트 합 - 정상순서
+	static LinkedList<Integer> q51(LinkedList<Integer> sum, Iterator<Integer> number1, Iterator<Integer> number2) {
+		if(!number1.hasNext() && !number2.hasNext()) return sum;
+		int num1 = number1.hasNext()? number1.next() : 0;
+		int num2 = number2.hasNext()? number2.next() : 0;
+		int add = num1 + num2;
+		if(add >= 10) {
+			sum = round(sum, sum.iterator(),  sum.size()-1, add/10);
+		}
+		sum.add(add % 10);
+		q51(sum, number1, number2);
+		return sum;
+	}
+	static LinkedList<Integer> round(LinkedList<Integer> number, Iterator<Integer> it, int index, int addNumber) {
+		if(!it.hasNext()) {
+			number.add(addNumber);
+			return number;
+		}
+		int test =  (number.size() > index) ? number.remove(index): 0;
+		int sum = test + addNumber;
+		if(sum >= 10) {
+			round(number, it, index-1, sum/10);
+			sum %= 10;
+		} 
+		number.add(sum);
+		return number;
+	}
 	
 }
