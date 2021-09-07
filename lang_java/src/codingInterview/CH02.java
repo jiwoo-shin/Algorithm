@@ -22,7 +22,9 @@ public class CH02 extends Solution {
 		//print(q3(createDoubleLinkedList(Integer.parseInt(br.readLine()))));
 		// print(q4(createSingleLinkedList(10), 4));
 		// print(q5(new LinkedList<Integer>(), 0, createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
-		print(q51(new LinkedList<Integer>(), createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
+		//print(q51(new LinkedList<Integer>(), createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
+		LinkedList<Integer> tmp = createSingleLinkedList(new int[] {1,2,3,32,1});
+		System.out.println(q6(tmp, tmp.iterator()));
 	}
 	static public class DoubleLinkedList {
 		public Node head;
@@ -61,6 +63,14 @@ public class CH02 extends Solution {
 		LinkedList<Integer> data = new LinkedList<Integer>();
 		for(int i = 0; i < n; i++) {
 			data.add((int)(Math.random()*10));
+		}
+		print(data);
+		return data;
+	}
+	static LinkedList<Integer> createSingleLinkedList(int[] n) {
+		LinkedList<Integer> data = new LinkedList<Integer>();
+		for(int i = 0; i < n.length; i++) {
+			data.add(n[i]);
 		}
 		print(data);
 		return data;
@@ -181,5 +191,15 @@ public class CH02 extends Solution {
 		number.add(sum);
 		return number;
 	}
-	
+
+	// 회문인지 검사
+	static boolean q6(LinkedList<Integer> data, Iterator<Integer> it) {
+		boolean answer = true;
+		int rightNumber = it.next();
+		if(it.hasNext()) {
+			answer = q6(data, it);
+		}
+		int leftNumber = data.remove();
+		return answer && (leftNumber == rightNumber);
+	}
 }
