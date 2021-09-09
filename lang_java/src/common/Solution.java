@@ -7,11 +7,24 @@ import java.util.LinkedList;
 
 import codingInterview.CH02.DoubleLinkedList;
 import codingInterview.CH02.Node;
+import codingInterview.CH02.SingleLinkedList;
 
 
 public abstract class Solution {
 	public abstract void solution() throws IOException;
 
+	public static void print(SingleLinkedList array) {
+		if(array == null) {
+			System.out.println("null");
+			return;
+		}
+		Node head = array.head;
+		while(head != null) {
+			System.out.print(head.data+" ");
+			head = head.next;
+		}
+		System.out.println();
+	}
 	public static void print(DoubleLinkedList array) {
 		Node head = array.head;
 		while(head != null) {

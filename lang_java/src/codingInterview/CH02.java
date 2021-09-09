@@ -23,8 +23,44 @@ public class CH02 extends Solution {
 		// print(q4(createSingleLinkedList(10), 4));
 		// print(q5(new LinkedList<Integer>(), 0, createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
 		//print(q51(new LinkedList<Integer>(), createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
-		LinkedList<Integer> tmp = createSingleLinkedList(new int[] {1,2,3,32,1});
-		System.out.println(q6(tmp, tmp.iterator()));
+		//LinkedList<Integer> tmp = createSingleLinkedList(new int[] {1,2,3,32,1});
+		//System.out.println(q6(tmp, tmp.iterator()));
+		SingleLinkedList common = createSingleCustomLinkedList(new int[] {1,2,3});
+		SingleLinkedList d1 = createSingleCustomLinkedList(new int[] {1,2});
+		SingleLinkedList d2 = createSingleCustomLinkedList(new int[] {1});
+		d1.add(common);
+		// d2.add(common);
+		print(q6(d1, d2));
+	}
+	static public class SingleLinkedList {
+		public Node head;
+		public SingleLinkedList(Node head) {
+			this.head = head;
+		}
+		public void add(SingleLinkedList add) {
+			if(this.head == null) {
+				this.head = add.head;
+				return;
+			}
+			Node start = this.head;
+			while(start.next != null) {
+				start = start.next;
+			}
+			start.next = add.head;
+		}
+		public void add(int add) { // n을 마지막에 추가
+			if(this.head == null) {
+				Node n = new Node(null, add);
+				this.head = n;
+				return;
+			}
+			Node start = this.head;
+			while(start.next != null) {
+				start = start.next;
+			}
+			Node n = new Node(null, add);
+			start.next = n;
+		}
 	}
 	static public class DoubleLinkedList {
 		public Node head;
@@ -53,11 +89,24 @@ public class CH02 extends Solution {
 		public Node next;
 		public Node prev;
 		public int data;
+		public Node(Node next, int data) {
+			this.next = next;
+			this.prev = null;
+			this.data = data;
+		}
 		public Node(Node next, Node prev, int data) {
 			this.next = next;
 			this.prev = prev;
 			this.data = data;
 		}
+	}
+	static SingleLinkedList createSingleCustomLinkedList(int[] n) {
+		SingleLinkedList data = new SingleLinkedList(null);
+		for(int i = 0; i < n.length; i++) {
+			data.add(n[i]);
+		}
+		print(data);
+		return data;
 	}
 	static LinkedList<Integer> createSingleLinkedList(int n) {
 		LinkedList<Integer> data = new LinkedList<Integer>();
@@ -201,5 +250,39 @@ public class CH02 extends Solution {
 		}
 		int leftNumber = data.remove();
 		return answer && (leftNumber == rightNumber);
+	}
+
+	// 교집합
+	static SingleLinkedList q6(SingleLinkedList data1, SingleLinkedList data2) {
+		print(data1);
+		print(data2);
+		boolean hasIntersection = false;
+		int[] size = new int[2];
+		SingleLinkedList[] datas = new SingleLinkedList[] {data1, data2};
+		Node[] node = new Node[2];
+		for(int i = 0; i < 2; i++) {
+			node[i] = datas[i].head;
+			while(node[i].next != null) {
+				size[i]++;
+				node[i] = node[i].next;
+			}
+		}
+		hasIntersection = node[0] == node[1];
+		if(hasIntersection) {
+			node[0] = datas[0].head;
+			node[1] = datas[1].head;
+			int bigIndex = 0;
+			if(size[1] > size[0]) bigIndex = 1;
+			int smallIndex = 1-bigIndex;
+			for(int i = 0; i < size[bigIndex] - size[smallIndex]; i++) {
+				node[bigIndex] = node[bigIndex].next;
+			}
+			while(node[0] != null) {
+				if(node[0] == node[1]) return new SingleLinkedList(node[0]);
+				node[0] = node[0].next;
+				node[1] = node[1].next;
+			}
+		} 
+		return null;
 	}
 }
