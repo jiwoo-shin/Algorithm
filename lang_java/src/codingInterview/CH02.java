@@ -25,12 +25,16 @@ public class CH02 extends Solution {
 		//print(q51(new LinkedList<Integer>(), createSingleLinkedList(3).iterator(), createSingleLinkedList(3).iterator()));
 		//LinkedList<Integer> tmp = createSingleLinkedList(new int[] {1,2,3,32,1});
 		//System.out.println(q6(tmp, tmp.iterator()));
-		SingleLinkedList common = createSingleCustomLinkedList(new int[] {1,2,3});
-		SingleLinkedList d1 = createSingleCustomLinkedList(new int[] {1,2});
-		SingleLinkedList d2 = createSingleCustomLinkedList(new int[] {1});
-		d1.add(common);
+		//SingleLinkedList common = createSingleCustomLinkedList(new int[] {1,2,3});
+		//SingleLinkedList d1 = createSingleCustomLinkedList(new int[] {1,2});
+		//SingleLinkedList d2 = createSingleCustomLinkedList(new int[] {1});
+		//d1.add(common);
 		// d2.add(common);
-		print(q6(d1, d2));
+		//print(q7(d1, d2));
+		SingleLinkedList tmp = createSingleCustomLinkedList(new int[] {1,2,3,4,5});
+		Node cir = tmp.head.next.next;
+		tmp.add(cir);
+		print(q8(tmp));
 	}
 	static public class SingleLinkedList {
 		public Node head;
@@ -59,6 +63,18 @@ public class CH02 extends Solution {
 				start = start.next;
 			}
 			Node n = new Node(null, add);
+			start.next = n;
+		}
+		public void add(Node add) { // n을 마지막에 추가
+			if(this.head == null) {
+				this.head = add;
+				return;
+			}
+			Node start = this.head;
+			while(start.next != null) {
+				start = start.next;
+			}
+			Node n = add;
 			start.next = n;
 		}
 	}
@@ -253,7 +269,7 @@ public class CH02 extends Solution {
 	}
 
 	// 교집합
-	static SingleLinkedList q6(SingleLinkedList data1, SingleLinkedList data2) {
+	static SingleLinkedList q7(SingleLinkedList data1, SingleLinkedList data2) {
 		print(data1);
 		print(data2);
 		boolean hasIntersection = false;
@@ -284,5 +300,26 @@ public class CH02 extends Solution {
 			}
 		} 
 		return null;
+	}
+	
+	// 루프 발견
+	static Node q8(SingleLinkedList data) {
+		Node slow = data.head;
+		Node fast = data.head;
+		Node circle = null;
+		while(fast != null && circle == null) {
+			fast = fast.next;
+			if(fast != null) fast = fast.next;
+			slow = slow.next;
+			if(fast == slow) circle = fast;
+		}
+		if(fast == null) return null; // 루프 없는 경우
+		
+		fast = data.head;
+		while(fast != circle) {
+			circle = circle.next;
+			fast = fast.next;
+		}
+		return fast;
 	}
 }
