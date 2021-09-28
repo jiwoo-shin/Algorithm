@@ -9,7 +9,7 @@ import codingInterview.*;
 public class Main {
     
 	public static void main(String[] args) throws IOException {
-		Solution s = new CH02();
+		Solution s = new CH03();
 		s.solution();
 	}
 	

@@ -13,6 +13,10 @@ import codingInterview.CH02.SingleLinkedList;
 public abstract class Solution {
 	public abstract void solution() throws IOException;
 
+	public static void print(Node data) {
+		if(data != null) System.out.println(data.data);
+		else System.out.println("null");
+	}
 	public static void print(SingleLinkedList array) {
 		if(array == null) {
 			System.out.println("null");
