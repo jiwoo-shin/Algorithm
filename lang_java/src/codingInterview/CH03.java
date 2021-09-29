@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Stack;
 
 import common.Solution;
 
@@ -15,8 +16,9 @@ public class CH03 extends Solution {
 	@Override
 	public void solution() throws IOException {
 		int[][] data = {{1,2,3}, {4,5,6,3,4}, {1}};
-		q1(data);
+		// q1(data);
 		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		q2();
 	}
 	static void q1(int[][] data) {
 		class MultipleStack {
@@ -91,5 +93,40 @@ public class CH03 extends Solution {
 		ms.push(2,3);
 		ms.push(2,3);
 		ms.print();
+	}
+	static void q2() {
+		class MinStack extends Stack {
+			Stack<Integer> minStack;
+			public MinStack() {
+				this.minStack = new Stack<Integer>();
+			}
+			public Object pop() {
+				//this.minStack.pop();
+				int item = (int) super.pop();
+				if(min() == item) minStack.pop(); // 같은 경우 스택에서 제거. 같은 경우는 여러번 minStack에 저장되어 있으므로 제거하여도 이슈 없다.
+				return item;
+			}
+			public Object push(int item) {
+				if(item <= min()) this.minStack.push(item); // 같거나 작은 경우 스택에 추가
+				// this.minStack.push(Math.min(min(), item)); // this.minStack.min()이 아님. this.minStack은 그냥 최소값 저장하는 스택일 뿐임
+				return super.push(item);
+			}
+			int min() {
+				if(this.minStack.isEmpty()) return Integer.MAX_VALUE;
+				return this.minStack.peek();
+			}
+		}
+		MinStack st = new MinStack();
+		st.push(1);
+		st.push(2);
+		st.push(1);
+		st.push(-1);
+		st.push(-1);
+		st.push(-1);
+		st.push(-1);
+		System.out.println(st.min());
+		st.pop();
+		System.out.println(st.min());
+		System.out.println(st);
 	}
 }
