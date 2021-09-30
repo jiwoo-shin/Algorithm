@@ -18,7 +18,8 @@ public class CH03 extends Solution {
 		int[][] data = {{1,2,3}, {4,5,6,3,4}, {1}};
 		// q1(data);
 		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		q2();
+		//q2();
+		q3();
 	}
 	static void q1(int[][] data) {
 		class MultipleStack {
@@ -128,5 +129,134 @@ public class CH03 extends Solution {
 		st.pop();
 		System.out.println(st.min());
 		System.out.println(st);
+	}
+	static void q3() throws IOException {
+		class ListStack extends Stack {
+			int length;
+			ListStack next;
+			ListStack prev;
+			public ListStack(int length) {
+				this.length = length;
+				this.next = null;
+				this.prev = null;
+			}
+			public ListStack getLast() {
+				ListStack nextStack = this;
+				while(nextStack.next != null) nextStack = nextStack.next;
+				return nextStack;
+			}
+			public Object push(Object item) {
+				this.length++;
+				return super.push(item);
+			}
+			public Object pop() {
+				this.length--;
+				return super.pop();
+			}
+		}
+		class SetOfStacks {
+			int limit;
+			int stackCount;
+			ListStack stackList;
+			public SetOfStacks(int limit) {
+				this.limit = limit;
+				this.stackCount = 1;
+				this.stackList = new ListStack(0);
+			}
+			public Object pop() {
+				ListStack lastStack = this.stackList.getLast();
+				if(lastStack.length == 1) {
+					if(lastStack.prev != null) lastStack.prev.next = null;
+					this.stackCount--;
+				} else if(lastStack.length == 0) { // 없는데 삭제하라고 할때 맨 처음
+					lastStack = lastStack.prev;
+					if(lastStack == null) return null;
+					lastStack.next = null;
+				}
+				return lastStack.pop();
+			}
+			public Object push(Object item) {
+				ListStack lastStack = this.stackList.getLast();
+				if(lastStack.length >= limit) {
+					lastStack.next = new ListStack(0);
+					lastStack.next.prev = lastStack;
+					this.stackCount++;
+					return lastStack.next.push(item);
+				}
+				return lastStack.push(item);
+			}
+			public Object popAt(int index) { // index 번째 제거
+				int stackCount = this.stackCount;
+				int numPop = (stackCount-1)*this.limit + this.stackList.getLast().length - index + 1;
+				if(numPop <= 0) return null;
+				Object[] tmp = new Object[numPop];
+				
+				for(int i = 0; i < numPop; i++) {
+					tmp[i] = this.pop();
+				}
+				for(int i = numPop-2; i >= 0; i--) {
+					this.push(tmp[i]);
+				}
+				return tmp[0];
+			}
+			public Object popAt(int index, int presentIndex, int numPop, int StackCount) { 
+				if(StackCount == -1) {
+					 stackCount = this.stackCount;
+					 numPop = (stackCount-1)*this.limit + this.stackList.getLast().length - index + 1;
+				}
+				if(numPop <= 0) return null;
+				if(presentIndex == numPop) {
+					return this.pop();
+				} else {
+					Object tmp = this.pop();
+					Object result = this.popAt(index, presentIndex+1, numPop, stackCount);
+					this.push(tmp);
+					return result;
+				}
+			}
+			public void print() {
+				ListStack st = this.stackList;
+				while(st != null) {
+					System.out.print(st);
+					st = st.next;
+				}
+				System.out.println();
+			}
+		}
+		SetOfStacks st = new SetOfStacks(2);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		// String tmp = br.readLine();
+		/*while(!tmp.equals("-1")) {
+			if(tmp.equals("pop")) {
+				st.pop();
+				st.print();
+			} else if (tmp.equals("p")) {
+				st.print();
+			} else {
+				String[] reg = tmp.split(" ");
+				if(reg[0].equals("push")) {
+					st.push(Integer.parseInt(reg[1]));
+				} else {
+					st.popAt(Integer.parseInt(reg[1]));
+				}
+				st.print();
+			}
+			tmp = br.readLine();
+		}*/
+		st.pop();
+		st.print();
+		st.push(1);
+		st.print();
+		st.pop();
+		st.pop();
+		st.print();
+		st.push(2);
+		st.print();
+		st.push(3);
+		st.print();
+		st.pop();
+		st.print();
+		//st.popAt(3, 1, -1, -1);
+		//st.print();
 	}
 }
