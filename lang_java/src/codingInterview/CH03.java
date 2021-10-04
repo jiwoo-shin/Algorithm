@@ -19,7 +19,8 @@ public class CH03 extends Solution {
 		// q1(data);
 		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		//q2();
-		q3();
+		// q3();
+		q4();
 	}
 	static void q1(int[][] data) {
 		class MultipleStack {
@@ -258,5 +259,97 @@ public class CH03 extends Solution {
 		st.print();
 		//st.popAt(3, 1, -1, -1);
 		//st.print();
+	}
+	
+	static void q4() {
+		class MyQueue {
+			Stack<Integer> addStack;
+			Stack<Integer> removeStack;
+			MyQueue() {
+				this.addStack = new Stack<Integer>();
+				this.removeStack = new Stack<Integer>();
+			}
+			void add(int item) {
+				if(this.removeStack.isEmpty()) {
+					this.removeStack.add(item); // removeStack
+					this.addStack.add(item);
+				} else {
+					int tmp = this.removeStack.pop();
+					this.add(item);
+					this.removeStack.add(tmp);
+				}
+			}
+			int remove() {
+				/*int tmp = this.addStack.pop();
+				if(this.addStack.isEmpty()) {
+					this.removeStack.pop();
+					return tmp;
+				} else {
+					int removeValue = this.remove();
+					this.addStack.add(tmp);
+					return removeValue;
+				}*/
+				return this.removeStack.pop();
+			}
+			int peek() {
+				return this.removeStack.peek();
+			}
+			boolean isEmpty() {
+				return this.addStack.isEmpty();
+			}
+			void print() {
+				System.out.println(this.addStack);
+				System.out.println(this.removeStack);
+			}
+		}
+		class MyQueue1 {
+			Stack<Integer> addStack; // 굳이 다 저장하고 있을 필요는 없음 여기는 쌓기만 할 것임
+			Stack<Integer> removeStack; //
+			MyQueue1() {
+				this.addStack = new Stack<Integer>();
+				this.removeStack = new Stack<Integer>();
+			}
+			void add(int item) {
+				this.addStack.add(item);
+			}
+			void reverseToRemoveStack() {
+				if(this.removeStack.isEmpty()) { // 제거할 것이 없는 경우
+					while(!this.addStack.isEmpty()) this.removeStack.push(this.addStack.pop()); // addStack을 역순으로 추가
+				}
+			}
+			int remove() { 
+				this.reverseToRemoveStack();
+				System.out.println("removeStack "+this.removeStack);
+				return this.removeStack.pop();
+			}
+			int peek() {
+				this.reverseToRemoveStack();
+				return this.removeStack.peek();
+			}
+			boolean isEmpty() {
+				return this.addStack.isEmpty();
+			}
+			void print() {
+				System.out.println(this.addStack);
+				System.out.println(this.removeStack);
+			}
+		}
+		MyQueue1 myqueue = new MyQueue1();
+		myqueue.add(1);
+		myqueue.add(2);
+		myqueue.add(3);
+		myqueue.add(4);
+		myqueue.add(5);
+		myqueue.print();
+		myqueue.remove();
+		myqueue.remove();
+		myqueue.remove();
+		myqueue.add(43);
+		myqueue.add(4);
+		myqueue.print();
+		myqueue.remove();
+		myqueue.remove();
+		myqueue.remove();
+		myqueue.print();
 	}
 }
