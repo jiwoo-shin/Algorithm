@@ -20,7 +20,8 @@ public class CH03 extends Solution {
 		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		//q2();
 		// q3();
-		q4();
+		//q4();
+		q5();
 	}
 	static void q1(int[][] data) {
 		class MultipleStack {
@@ -351,5 +352,33 @@ public class CH03 extends Solution {
 		myqueue.remove();
 		myqueue.remove();
 		myqueue.print();
+	}
+	static void q5() {
+		class SortStack extends Stack<Integer> {
+			public Integer push(Integer item) {
+				if(this.isEmpty()) super.push(item);
+				else {
+					int tmp = this.pop();
+					if(tmp > item) {
+						this.push(item);
+						super.push(tmp);
+					} else {
+						super.push(tmp);
+						super.push(item);
+					}
+				}
+				return item;
+			}
+		}
+		SortStack st = new SortStack();
+		st.push(3);
+		System.out.println(st);
+		st.push(1);
+		System.out.println(st);
+		st.push(2);
+		System.out.println(st);
+		st.push(4);
+		System.out.println(st);
+		System.out.println(st.peek());
 	}
 }
