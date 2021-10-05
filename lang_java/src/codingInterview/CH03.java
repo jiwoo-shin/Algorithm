@@ -21,7 +21,8 @@ public class CH03 extends Solution {
 		//q2();
 		// q3();
 		//q4();
-		q5();
+		//q5();
+		q6();
 	}
 	static void q1(int[][] data) {
 		class MultipleStack {
@@ -380,5 +381,73 @@ public class CH03 extends Solution {
 		st.push(4);
 		System.out.println(st);
 		System.out.println(st.peek());
+	}
+	static void q6() {
+		class Animal {
+			int order;
+			int animalType;
+		}
+		class Dog extends Animal {
+			Dog() {
+				this.animalType = 0;
+			}
+			public String toString() {
+				return "dog "+this.order;
+			}
+		}
+		class Cat extends Animal {
+			Cat() {
+				this.animalType = 1;
+			}
+			public String toString() {
+				return "cat "+this.order;
+			}
+		}
+		class AnimalShelter {
+			LinkedList<Dog> dogList = new LinkedList<Dog>();
+			LinkedList<Cat> catList = new LinkedList<Cat>();
+			int inputSize = 0;
+			void enqueue(Animal animal) {
+				animal.order = ++this.inputSize;
+				if(animal.animalType == 0) {
+					dogList.add((Dog) animal);
+				} else {
+					catList.add((Cat)animal);
+				}
+			}
+			Animal dequeueAny() {
+				Dog dogFirst = dogList.getFirst();
+				Cat catFirst = catList.getFirst();
+				if(dogFirst.order < catFirst.order) {
+					dogList.remove(0);
+					return dogFirst;
+				} else {
+					catList.remove(0);
+					return catFirst;
+				}
+			}
+			Dog dequeueDog() {
+				return dogList.remove(0);
+			}
+			Cat dequeueCat() {
+				return catList.remove(0);
+			}
+			void print() {
+				System.out.println("PRINT");
+				System.out.println(this.catList.toString());
+				System.out.println(this.dogList.toString());
+			}
+		}
+		AnimalShelter as = new AnimalShelter();
+		as.enqueue(new Dog());
+		as.enqueue(new Cat());
+		as.enqueue(new Dog());
+		as.enqueue(new Dog());
+		as.enqueue(new Cat());
+		as.print();
+		as.dequeueAny();
+		as.dequeueAny();
+		as.dequeueDog();
+		as.print();
 	}
 }
