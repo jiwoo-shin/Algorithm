@@ -26,7 +26,8 @@ public class CH04 extends Solution {
 		n4.add(new Node[] {n1});
 		n1.add(new Node[] { n2});
 		Graph graph = new Graph(5, new Node[] {n0, n1, n2, n3, n4});
-		System.out.println(q1(graph,  n0, n2));
+		// System.out.println(q1(graph,  n0, n2));
+		System.out.println(q2(new int[] {1,2,3,4,5,6,7,8}));
 	}
 	class Node {
 		int number;
@@ -73,5 +74,61 @@ public class CH04 extends Solution {
 		}
 		
 		return false;
+	}
+	TreeNode q2(int[] list) {
+		int maxLength = (int) (Math.log(list.length)/Math.log(2)); // 몇 층까지 있는지 (0층부터 length 층 까지 있음)
+		int lastIndex = list.length - (int)Math.pow(2, maxLength); // 마지막 층은 몇번째 인덱스까지 있는지 (0~lastIndex까지)
+		return createTree(0, 0, maxLength, lastIndex, 0, list);
+	}
+	class TreeNode {
+		int step; // 몇 층인지..
+		
+		int number;
+		TreeNode leftChild;
+		TreeNode rightChild;
+		public String toString() {
+			/*
+			if(leftChild != null) tmp += leftChild.toString()+" ";
+			tmp += this.number+" ";
+			if(rightChild != null) tmp += rightChild.toString()+" ";
+			*/
+			String tmp = "";
+			Queue<TreeNode> queue = new LinkedList<TreeNode>();
+			System.out.print(this.number+" ("+this.step+")  ");
+			queue.add(this.leftChild);
+			queue.add(this.rightChild);
+			int presentStep = 0;
+			while(!queue.isEmpty()) {
+				TreeNode tmpNode = queue.remove();
+				if(tmpNode != null) {
+					String print = tmpNode.number+" ("+tmpNode.step+")  ";
+					if(tmpNode.step != presentStep) {
+						 print = "\n" + print;
+						presentStep = tmpNode.step;
+					}
+					System.out.print(print);
+					if(tmpNode.leftChild != null)queue.add(tmpNode.leftChild);
+					if(tmpNode.rightChild != null)queue.add(tmpNode.rightChild);
+				}
+			}
+			return tmp;
+			
+		}
+	}
+	TreeNode createTree(int nowLength, int index, int maxLength, int lastIndex, int number, int[] numberList) {
+		if(nowLength < maxLength || (nowLength == maxLength && index <= lastIndex)) {
+			TreeNode node = new TreeNode();
+			int leftIndex =  2 * index; // 해당 층에서의 index .. 
+			int leftNumber = (int)Math.pow(2, nowLength+1)-1 + leftIndex;
+			// 왼쪽
+			node.leftChild = createTree(nowLength + 1, leftIndex, maxLength, lastIndex, leftNumber, numberList);
+			// 본인
+			node.number = numberList[number];
+			node.step = nowLength;
+			// 오른쪽
+			node.rightChild = createTree(nowLength + 1, leftIndex + 1, maxLength, lastIndex, leftNumber+1, numberList);
+			return node;
+		}
+		return null;
 	}
 }
