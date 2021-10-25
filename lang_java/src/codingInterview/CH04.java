@@ -27,7 +27,22 @@ public class CH04 extends Solution {
 		n1.add(new Node[] { n2});
 		Graph graph = new Graph(5, new Node[] {n0, n1, n2, n3, n4});
 		// System.out.println(q1(graph,  n0, n2));
-		System.out.println(q2(new int[] {1,2,3,4,5,6,7,8}));
+		//System.out.println(q2(new int[] {1,2,3,4,5,6,7,8}));
+
+		TreeNode t0 = new TreeNode(0, 0);
+		TreeNode t1 = new TreeNode(1, 1);
+		TreeNode t2 = new TreeNode(1, 2);
+		TreeNode t3 = new TreeNode(2, 3);
+		TreeNode t4 = new TreeNode(2, 4);
+		TreeNode t5 = new TreeNode(2, 5);
+		TreeNode t6 = new TreeNode(3, 6);
+		t0.addLeft(t1);
+		t0.addRight(t2);
+		t1.addLeft(t3);
+		t1.addRight(t4);
+		t2.addLeft(t5);
+		t3.addLeft(t6);
+		q3(t0);
 	}
 	class Node {
 		int number;
@@ -80,12 +95,50 @@ public class CH04 extends Solution {
 		int lastIndex = list.length - (int)Math.pow(2, maxLength); // 마지막 층은 몇번째 인덱스까지 있는지 (0~lastIndex까지)
 		return createTree(0, 0, maxLength, lastIndex, 0, list);
 	}
+	LinkedList q3(TreeNode root) {
+		LinkedList<LinkedList> list = new LinkedList<LinkedList>();
+		Queue<TreeNode> tmp = new LinkedList<TreeNode>();
+		tmp.add(root);
+		while(!tmp.isEmpty()) {
+			TreeNode presentNode = tmp.poll();
+			if(list.size() <= presentNode.step) list.add(new LinkedList<>());
+			list.get(presentNode.step).add(presentNode);
+			if(presentNode.leftChild != null) {
+				tmp.add(presentNode.leftChild);
+			}
+			if(presentNode.rightChild != null) {
+				tmp.add(presentNode.rightChild);
+			}
+		}
+		for(int i = 0; i < list.size(); i++) {
+			LinkedList tmp1 = list.get(i);
+			System.out.print("["+i+"] ");
+			for(int j = 0; j < tmp1.size(); j++) {
+				System.out.print(((TreeNode)tmp1.get(j)).number+" ");
+			}
+			System.out.println();
+		}
+		return list;
+	}
 	class TreeNode {
 		int step; // 몇 층인지..
 		
 		int number;
 		TreeNode leftChild;
 		TreeNode rightChild;
+		TreeNode() {
+			
+		}
+		TreeNode(int step, int number) {
+			this.step = step;
+			this.number = number;
+		}
+		public void addLeft(TreeNode left) {
+			this.leftChild = left;
+		}
+		public void addRight(TreeNode right) {
+			this.rightChild = right;
+		}
 		public String toString() {
 			/*
 			if(leftChild != null) tmp += leftChild.toString()+" ";
