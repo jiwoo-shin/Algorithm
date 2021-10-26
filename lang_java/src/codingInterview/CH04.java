@@ -42,7 +42,8 @@ public class CH04 extends Solution {
 		t1.addRight(t4);
 		t2.addLeft(t5);
 		t3.addLeft(t6);
-		q3(t0);
+		//q3(t0);
+		q3_1(t0);
 	}
 	class Node {
 		int number;
@@ -119,6 +120,26 @@ public class CH04 extends Solution {
 			System.out.println();
 		}
 		return list;
+	}
+	LinkedList q3_1(TreeNode root) {
+		LinkedList<LinkedList> list = new LinkedList<LinkedList>();
+		recursiveAdd(0, root, list);
+		for(int i = 0; i < list.size(); i++) {
+			LinkedList tmp1 = list.get(i);
+			System.out.print("["+i+"] ");
+			for(int j = 0; j < tmp1.size(); j++) {
+				System.out.print(((TreeNode)tmp1.get(j)).number+" ");
+			}
+			System.out.println();
+		}
+		return list;
+	}
+	void recursiveAdd(int step, TreeNode node, LinkedList<LinkedList> list) {
+		if(list.size() <= step) list.add(new LinkedList<TreeNode>());
+		LinkedList<TreeNode> tmp = list.get(step);
+		tmp.add(node);
+		if(node.leftChild != null) recursiveAdd(step+1, node.leftChild, list);
+		if(node.rightChild != null) recursiveAdd(step+1, node.rightChild, list);
 	}
 	class TreeNode {
 		int step; // ¸î ÃþÀÎÁö..
