@@ -36,14 +36,17 @@ public class CH04 extends Solution {
 		TreeNode t4 = new TreeNode(2, 4);
 		TreeNode t5 = new TreeNode(2, 5);
 		TreeNode t6 = new TreeNode(3, 6);
+		TreeNode t7 = new TreeNode(4, 7);
 		t0.addLeft(t1);
 		t0.addRight(t2);
 		t1.addLeft(t3);
 		t1.addRight(t4);
 		t2.addLeft(t5);
 		t3.addLeft(t6);
+		t2.addRight(t7);
 		//q3(t0);
-		q3_1(t0);
+		// q3_1(t0);
+		System.out.println(q4(t0));
 	}
 	class Node {
 		int number;
@@ -133,6 +136,16 @@ public class CH04 extends Solution {
 			System.out.println();
 		}
 		return list;
+	}
+	boolean q4(TreeNode node) {
+		return q4_sub(node) >= 0;
+	}
+	int q4_sub(TreeNode node) {
+		int left = node.leftChild == null ? 0 : q4_sub(node.leftChild);
+		int right =  node.rightChild == null ? 0 : q4_sub(node.rightChild);
+		if(left == 0 && right == 0) return 1;
+		if(Math.abs(left-right) > 1) return -100;
+		return Math.max(left, right) + 1;
 	}
 	void recursiveAdd(int step, TreeNode node, LinkedList<LinkedList> list) {
 		if(list.size() <= step) list.add(new LinkedList<TreeNode>());
